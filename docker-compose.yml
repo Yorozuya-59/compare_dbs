@@ -1,0 +1,94 @@
+services:
+  # 1. MySQL (リレーショナルDBの代表格)
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: mydatabase
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  # 2. PostgreSQL (MySQLの最大の比較対象 / 機能特化型RDBMS)
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: rootpassword
+      POSTGRES_DB: mydatabase
+      # --- ここを追加 ---
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    volumes:
+      # --- ここを修正 ---
+      - postgres_data:/var/lib/postgresql/data
+  
+  # 3. MongoDB (NoSQL / ドキュメント指向DBの代表格)
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpassword
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+  # 4. Redis (インメモリ / KVSの代表格・最速の基準値として)
+  redis:
+    image: redis:latest
+    container_name: redis
+    restart: always
+    command: redis-server --requirepass rootpassword
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+# 5. SurrealDB (Rust製 / 最新のマルチモデルDB)
+  surrealdb:
+    image: surrealdb/surrealdb:latest
+    container_name: surrealdb
+    restart: always
+    # --- 以下の行を追加（強制的にroot権限でコンテナを動かし、ボリュームへの書き込みを許可する） ---
+    user: root
+    # --- bind設定と、rocksdb:/// (スラッシュ3つ) の絶対パスに修正 ---
+    command: start --bind 0.0.0.0:8000 --user root --pass rootpassword rocksdb:///var/lib/surrealdb
+    ports:
+      - "8000:8000"
+    volumes:
+      - surreal_data:/var/lib/surrealdb
+  
+  # ベンチマーク実行用コンテナ
+  benchmarker:
+    build: ./environment     # environmentディレクトリをビルドの基準にする
+    container_name: python_benchmarker
+    tty: true
+    stdin_open: true         # 起動させ続けるための設定
+    command: ["tail", "-f", "/dev/null"]  # 起動させ続けるための設定
+    volumes:
+      - ./src:/app/src       # ホストのsrcディレクトリをコンテナ内の/app/srcにマウント
+    depends_on:
+      - mysql
+      - postgres
+    networks:
+      - default
+  
+volumes:
+  mysql_data:
+  postgres_data:
+  mongodb_data:
+  redis_data:
+  surreal_data:
+
+networks:
+  default:
+    driver: bridge

@@ -1,0 +1,868 @@
+postgres  | Error: in 18+, these Docker images are configured to store database data in a
+postgres  |        format which is compatible with "pg_ctlcluster" (specifically, using
+postgres  |        major-version-specific directory names).  This better reflects how
+postgres  |        PostgreSQL itself works, and how upgrades are to be performed.
+postgres  | 
+postgres  |        See also https://github.com/docker-library/postgres/pull/1259
+postgres  | 
+postgres  |        Counter to that, there appears to be PostgreSQL data in:
+postgres  |          /var/lib/postgresql/data (unused mount/volume)
+postgres  | 
+postgres  |        This is usually the result of upgrading the Docker image without
+postgres  |        upgrading the underlying database using "pg_upgrade" (which requires both
+postgres  |        versions).
+postgres  | 
+postgres  |        The suggested container configuration for 18+ is to place a single mount
+postgres  |        at /var/lib/postgresql which will then place PostgreSQL data in a
+postgres  |        subdirectory, allowing usage of "pg_upgrade --link" without mount point
+postgres  |        boundary issues.
+postgres  | 
+postgres  |        See https://github.com/docker-library/postgres/issues/37 for a (long)
+postgres  |        discussion around this process, and suggestions for how to do so.
+postgres  | Error: in 18+, these Docker images are configured to store database data in a
+postgres  |        format which is compatible with "pg_ctlcluster" (specifically, using
+postgres  |        major-version-specific directory names).  This better reflects how
+postgres  |        PostgreSQL itself works, and how upgrades are to be performed.
+postgres  | 
+postgres  |        See also https://github.com/docker-library/postgres/pull/1259
+postgres  | 
+postgres  |        Counter to that, there appears to be PostgreSQL data in:
+postgres  |          /var/lib/postgresql/data (unused mount/volume)
+postgres  | 
+postgres  |        This is usually the result of upgrading the Docker image without
+postgres  |        upgrading the underlying database using "pg_upgrade" (which requires both
+postgres  |        versions).
+postgres  | 
+postgres  |        The suggested container configuration for 18+ is to place a single mount
+postgres  |        at /var/lib/postgresql which will then place PostgreSQL data in a
+postgres  |        subdirectory, allowing usage of "pg_upgrade --link" without mount point
+postgres  |        boundary issues.
+postgres  | 
+postgres  |        See https://github.com/docker-library/postgres/issues/37 for a (long)
+postgres  |        discussion around this process, and suggestions for how to do so.
+postgres  | Error: in 18+, these Docker images are configured to store database data in a
+postgres  |        format which is compatible with "pg_ctlcluster" (specifically, using
+postgres  |        major-version-specific directory names).  This better reflects how
+postgres  |        PostgreSQL itself works, and how upgrades are to be performed.
+postgres  | 
+postgres  |        See also https://github.com/docker-library/postgres/pull/1259
+postgres  | 
+postgres  |        Counter to that, there appears to be PostgreSQL data in:
+postgres  |          /var/lib/postgresql/data (unused mount/volume)
+postgres  | 
+postgres  |        This is usually the result of upgrading the Docker image without
+postgres  |        upgrading the underlying database using "pg_upgrade" (which requires both
+postgres  |        versions).
+postgres  | 
+postgres  |        The suggested container configuration for 18+ is to place a single mount
+postgres  |        at /var/lib/postgresql which will then place PostgreSQL data in a
+postgres  |        subdirectory, allowing usage of "pg_upgrade --link" without mount point
+postgres  |        boundary issues.
+postgres  | 
+postgres  |        See https://github.com/docker-library/postgres/issues/37 for a (long)
+postgres  |        discussion around this process, and suggestions for how to do so.
+postgres  | Error: in 18+, these Docker images are configured to store database data in a
+postgres  |        format which is compatible with "pg_ctlcluster" (specifically, using
+postgres  |        major-version-specific directory names).  This better reflects how
+postgres  |        PostgreSQL itself works, and how upgrades are to be performed.
+postgres  | 
+postgres  |        See also https://github.com/docker-library/postgres/pull/1259
+postgres  | 
+postgres  |        Counter to that, there appears to be PostgreSQL data in:
+postgres  |          /var/lib/postgresql/data (unused mount/volume)
+postgres  | 
+postgres  |        This is usually the result of upgrading the Docker image without
+postgres  |        upgrading the underlying database using "pg_upgrade" (which requires both
+postgres  |        versions).
+postgres  | 
+postgres  |        The suggested container configuration for 18+ is to place a single mount
+postgres  |        at /var/lib/postgresql which will then place PostgreSQL data in a
+postgres  |        subdirectory, allowing usage of "pg_upgrade --link" without mount point
+postgres  |        boundary issues.
+postgres  | 
+postgres  |        See https://github.com/docker-library/postgres/issues/37 for a (long)
+postgres  |        discussion around this process, and suggestions for how to do so.
+postgres  | Error: in 18+, these Docker images are configured to store database data in a
+postgres  |        format which is compatible with "pg_ctlcluster" (specifically, using
+postgres  |        major-version-specific directory names).  This better reflects how
+postgres  |        PostgreSQL itself works, and how upgrades are to be performed.
+postgres  | 
+postgres  |        See also https://github.com/docker-library/postgres/pull/1259
+postgres  | 
+postgres  |        Counter to that, there appears to be PostgreSQL data in:
+postgres  |          /var/lib/postgresql/data (unused mount/volume)
+postgres  | 
+postgres  |        This is usually the result of upgrading the Docker image without
+postgres  |        upgrading the underlying database using "pg_upgrade" (which requires both
+postgres  |        versions).
+postgres  | 
+postgres  |        The suggested container configuration for 18+ is to place a single mount
+postgres  |        at /var/lib/postgresql which will then place PostgreSQL data in a
+postgres  |        subdirectory, allowing usage of "pg_upgrade --link" without mount point
+postgres  |        boundary issues.
+postgres  | 
+postgres  |        See https://github.com/docker-library/postgres/issues/37 for a (long)
+postgres  |        discussion around this process, and suggestions for how to do so.
+postgres  | Error: in 18+, these Docker images are configured to store database data in a
+postgres  |        format which is compatible with "pg_ctlcluster" (specifically, using
+postgres  |        major-version-specific directory names).  This better reflects how
+postgres  |        PostgreSQL itself works, and how upgrades are to be performed.
+postgres  | 
+postgres  |        See also https://github.com/docker-library/postgres/pull/1259
+postgres  | 
+postgres  |        Counter to that, there appears to be PostgreSQL data in:
+postgres  |          /var/lib/postgresql/data (unused mount/volume)
+postgres  | 
+postgres  |        This is usually the result of upgrading the Docker image without
+postgres  |        upgrading the underlying database using "pg_upgrade" (which requires both
+postgres  |        versions).
+postgres  | 
+postgres  |        The suggested container configuration for 18+ is to place a single mount
+postgres  |        at /var/lib/postgresql which will then place PostgreSQL data in a
+postgres  |        subdirectory, allowing usage of "pg_upgrade --link" without mount point
+postgres  |        boundary issues.
+postgres  | 
+postgres  |        See https://github.com/docker-library/postgres/issues/37 for a (long)
+postgres  |        discussion around this process, and suggestions for how to do so.
+postgres  | Error: in 18+, these Docker images are configured to store database data in a
+postgres  |        format which is compatible with "pg_ctlcluster" (specifically, using
+postgres  |        major-version-specific directory names).  This better reflects how
+postgres  |        PostgreSQL itself works, and how upgrades are to be performed.
+postgres  | 
+postgres  |        See also https://github.com/docker-library/postgres/pull/1259
+postgres  | 
+postgres  |        Counter to that, there appears to be PostgreSQL data in:
+postgres  |          /var/lib/postgresql/data (unused mount/volume)
+postgres  | 
+postgres  |        This is usually the result of upgrading the Docker image without
+postgres  |        upgrading the underlying database using "pg_upgrade" (which requires both
+postgres  |        versions).
+postgres  | 
+postgres  |        The suggested container configuration for 18+ is to place a single mount
+postgres  |        at /var/lib/postgresql which will then place PostgreSQL data in a
+postgres  |        subdirectory, allowing usage of "pg_upgrade --link" without mount point
+postgres  |        boundary issues.
+postgres  | 
+postgres  |        See https://github.com/docker-library/postgres/issues/37 for a (long)
+postgres  |        discussion around this process, and suggestions for how to do so.
+postgres  | Error: in 18+, these Docker images are configured to store database data in a
+postgres  |        format which is compatible with "pg_ctlcluster" (specifically, using
+postgres  |        major-version-specific directory names).  This better reflects how
+postgres  |        PostgreSQL itself works, and how upgrades are to be performed.
+postgres  | 
+postgres  |        See also https://github.com/docker-library/postgres/pull/1259
+postgres  | 
+postgres  |        Counter to that, there appears to be PostgreSQL data in:
+postgres  |          /var/lib/postgresql/data (unused mount/volume)
+postgres  | 
+postgres  |        This is usually the result of upgrading the Docker image without
+postgres  |        upgrading the underlying database using "pg_upgrade" (which requires both
+postgres  |        versions).
+postgres  | 
+postgres  |        The suggested container configuration for 18+ is to place a single mount
+postgres  |        at /var/lib/postgresql which will then place PostgreSQL data in a
+postgres  |        subdirectory, allowing usage of "pg_upgrade --link" without mount point
+postgres  |        boundary issues.
+postgres  | 
+postgres  |        See https://github.com/docker-library/postgres/issues/37 for a (long)
+postgres  |        discussion around this process, and suggestions for how to do so.
+postgres  | Error: in 18+, these Docker images are configured to store database data in a
+postgres  |        format which is compatible with "pg_ctlcluster" (specifically, using
+postgres  |        major-version-specific directory names).  This better reflects how
+postgres  |        PostgreSQL itself works, and how upgrades are to be performed.
+postgres  | 
+postgres  |        See also https://github.com/docker-library/postgres/pull/1259
+postgres  | 
+postgres  |        Counter to that, there appears to be PostgreSQL data in:
+postgres  |          /var/lib/postgresql/data (unused mount/volume)
+postgres  | 
+postgres  |        This is usually the result of upgrading the Docker image without
+postgres  |        upgrading the underlying database using "pg_upgrade" (which requires both
+postgres  |        versions).
+postgres  | 
+postgres  |        The suggested container configuration for 18+ is to place a single mount
+postgres  |        at /var/lib/postgresql which will then place PostgreSQL data in a
+postgres  |        subdirectory, allowing usage of "pg_upgrade --link" without mount point
+postgres  |        boundary issues.
+postgres  | 
+postgres  |        See https://github.com/docker-library/postgres/issues/37 for a (long)
+postgres  |        discussion around this process, and suggestions for how to do so.
+postgres  | Error: in 18+, these Docker images are configured to store database data in a
+postgres  |        format which is compatible with "pg_ctlcluster" (specifically, using
+postgres  |        major-version-specific directory names).  This better reflects how
+postgres  |        PostgreSQL itself works, and how upgrades are to be performed.
+postgres  | 
+postgres  |        See also https://github.com/docker-library/postgres/pull/1259
+postgres  | 
+postgres  |        Counter to that, there appears to be PostgreSQL data in:
+postgres  |          /var/lib/postgresql/data (unused mount/volume)
+postgres  | 
+postgres  |        This is usually the result of upgrading the Docker image without
+postgres  |        upgrading the underlying database using "pg_upgrade" (which requires both
+postgres  |        versions).
+postgres  | 
+postgres  |        The suggested container configuration for 18+ is to place a single mount
+postgres  |        at /var/lib/postgresql which will then place PostgreSQL data in a
+postgres  |        subdirectory, allowing usage of "pg_upgrade --link" without mount point
+postgres  |        boundary issues.
+postgres  | 
+postgres  |        See https://github.com/docker-library/postgres/issues/37 for a (long)
+postgres  |        discussion around this process, and suggestions for how to do so.
+postgres  | Error: in 18+, these Docker images are configured to store database data in a
+postgres  |        format which is compatible with "pg_ctlcluster" (specifically, using
+postgres  |        major-version-specific directory names).  This better reflects how
+postgres  |        PostgreSQL itself works, and how upgrades are to be performed.
+postgres  | 
+postgres  |        See also https://github.com/docker-library/postgres/pull/1259
+postgres  | 
+postgres  |        Counter to that, there appears to be PostgreSQL data in:
+postgres  |          /var/lib/postgresql/data (unused mount/volume)
+postgres  | 
+postgres  |        This is usually the result of upgrading the Docker image without
+postgres  |        upgrading the underlying database using "pg_upgrade" (which requires both
+postgres  |        versions).
+postgres  | 
+postgres  |        The suggested container configuration for 18+ is to place a single mount
+postgres  |        at /var/lib/postgresql which will then place PostgreSQL data in a
+postgres  |        subdirectory, allowing usage of "pg_upgrade --link" without mount point
+postgres  |        boundary issues.
+postgres  | 
+postgres  |        See https://github.com/docker-library/postgres/issues/37 for a (long)
+postgres  |        discussion around this process, and suggestions for how to do so.
+postgres  | Error: in 18+, these Docker images are configured to store database data in a
+postgres  |        format which is compatible with "pg_ctlcluster" (specifically, using
+postgres  |        major-version-specific directory names).  This better reflects how
+postgres  |        PostgreSQL itself works, and how upgrades are to be performed.
+postgres  | 
+postgres  |        See also https://github.com/docker-library/postgres/pull/1259
+postgres  | 
+postgres  |        Counter to that, there appears to be PostgreSQL data in:
+postgres  |          /var/lib/postgresql/data (unused mount/volume)
+postgres  | 
+postgres  |        This is usually the result of upgrading the Docker image without
+postgres  |        upgrading the underlying database using "pg_upgrade" (which requires both
+postgres  |        versions).
+postgres  | 
+postgres  |        The suggested container configuration for 18+ is to place a single mount
+postgres  |        at /var/lib/postgresql which will then place PostgreSQL data in a
+postgres  |        subdirectory, allowing usage of "pg_upgrade --link" without mount point
+postgres  |        boundary issues.
+postgres  | 
+postgres  |        See https://github.com/docker-library/postgres/issues/37 for a (long)
+postgres  |        discussion around this process, and suggestions for how to do so.
+postgres  | Error: in 18+, these Docker images are configured to store database data in a
+postgres  |        format which is compatible with "pg_ctlcluster" (specifically, using
+postgres  |        major-version-specific directory names).  This better reflects how
+postgres  |        PostgreSQL itself works, and how upgrades are to be performed.
+postgres  | 
+postgres  |        See also https://github.com/docker-library/postgres/pull/1259
+postgres  | 
+postgres  |        Counter to that, there appears to be PostgreSQL data in:
+postgres  |          /var/lib/postgresql/data (unused mount/volume)
+postgres  | 
+postgres  |        This is usually the result of upgrading the Docker image without
+postgres  |        upgrading the underlying database using "pg_upgrade" (which requires both
+postgres  |        versions).
+postgres  | 
+postgres  |        The suggested container configuration for 18+ is to place a single mount
+postgres  |        at /var/lib/postgresql which will then place PostgreSQL data in a
+postgres  |        subdirectory, allowing usage of "pg_upgrade --link" without mount point
+postgres  |        boundary issues.
+postgres  | 
+postgres  |        See https://github.com/docker-library/postgres/issues/37 for a (long)
+postgres  |        discussion around this process, and suggestions for how to do so.
+postgres  | Error: in 18+, these Docker images are configured to store database data in a
+postgres  |        format which is compatible with "pg_ctlcluster" (specifically, using
+postgres  |        major-version-specific directory names).  This better reflects how
+postgres  |        PostgreSQL itself works, and how upgrades are to be performed.
+postgres  | 
+postgres  |        See also https://github.com/docker-library/postgres/pull/1259
+postgres  | 
+postgres  |        Counter to that, there appears to be PostgreSQL data in:
+postgres  |          /var/lib/postgresql/data (unused mount/volume)
+postgres  | 
+postgres  |        This is usually the result of upgrading the Docker image without
+postgres  |        upgrading the underlying database using "pg_upgrade" (which requires both
+postgres  |        versions).
+postgres  | 
+postgres  |        The suggested container configuration for 18+ is to place a single mount
+postgres  |        at /var/lib/postgresql which will then place PostgreSQL data in a
+postgres  |        subdirectory, allowing usage of "pg_upgrade --link" without mount point
+postgres  |        boundary issues.
+postgres  | 
+postgres  |        See https://github.com/docker-library/postgres/issues/37 for a (long)
+postgres  |        discussion around this process, and suggestions for how to do so.
+postgres  | Error: in 18+, these Docker images are configured to store database data in a
+postgres  |        format which is compatible with "pg_ctlcluster" (specifically, using
+postgres  |        major-version-specific directory names).  This better reflects how
+postgres  |        PostgreSQL itself works, and how upgrades are to be performed.
+postgres  | 
+postgres  |        See also https://github.com/docker-library/postgres/pull/1259
+postgres  | 
+postgres  |        Counter to that, there appears to be PostgreSQL data in:
+postgres  |          /var/lib/postgresql/data (unused mount/volume)
+postgres  | 
+postgres  |        This is usually the result of upgrading the Docker image without
+postgres  |        upgrading the underlying database using "pg_upgrade" (which requires both
+postgres  |        versions).
+postgres  | 
+postgres  |        The suggested container configuration for 18+ is to place a single mount
+postgres  |        at /var/lib/postgresql which will then place PostgreSQL data in a
+postgres  |        subdirectory, allowing usage of "pg_upgrade --link" without mount point
+postgres  |        boundary issues.
+postgres  | 
+postgres  |        See https://github.com/docker-library/postgres/issues/37 for a (long)
+postgres  |        discussion around this process, and suggestions for how to do so.
+postgres  | Error: in 18+, these Docker images are configured to store database data in a
+postgres  |        format which is compatible with "pg_ctlcluster" (specifically, using
+postgres  |        major-version-specific directory names).  This better reflects how
+postgres  |        PostgreSQL itself works, and how upgrades are to be performed.
+postgres  | 
+postgres  |        See also https://github.com/docker-library/postgres/pull/1259
+postgres  | 
+postgres  |        Counter to that, there appears to be PostgreSQL data in:
+postgres  |          /var/lib/postgresql/data (unused mount/volume)
+postgres  | 
+postgres  |        This is usually the result of upgrading the Docker image without
+postgres  |        upgrading the underlying database using "pg_upgrade" (which requires both
+postgres  |        versions).
+postgres  | 
+postgres  |        The suggested container configuration for 18+ is to place a single mount
+postgres  |        at /var/lib/postgresql which will then place PostgreSQL data in a
+postgres  |        subdirectory, allowing usage of "pg_upgrade --link" without mount point
+postgres  |        boundary issues.
+postgres  | 
+postgres  |        See https://github.com/docker-library/postgres/issues/37 for a (long)
+postgres  |        discussion around this process, and suggestions for how to do so.
+postgres  | Error: in 18+, these Docker images are configured to store database data in a
+postgres  |        format which is compatible with "pg_ctlcluster" (specifically, using
+postgres  |        major-version-specific directory names).  This better reflects how
+postgres  |        PostgreSQL itself works, and how upgrades are to be performed.
+postgres  | 
+postgres  |        See also https://github.com/docker-library/postgres/pull/1259
+postgres  | 
+postgres  |        Counter to that, there appears to be PostgreSQL data in:
+postgres  |          /var/lib/postgresql/data (unused mount/volume)
+postgres  | 
+postgres  |        This is usually the result of upgrading the Docker image without
+postgres  |        upgrading the underlying database using "pg_upgrade" (which requires both
+postgres  |        versions).
+postgres  | 
+postgres  |        The suggested container configuration for 18+ is to place a single mount
+postgres  |        at /var/lib/postgresql which will then place PostgreSQL data in a
+postgres  |        subdirectory, allowing usage of "pg_upgrade --link" without mount point
+postgres  |        boundary issues.
+postgres  | 
+postgres  |        See https://github.com/docker-library/postgres/issues/37 for a (long)
+postgres  |        discussion around this process, and suggestions for how to do so.
+postgres  | Error: in 18+, these Docker images are configured to store database data in a
+postgres  |        format which is compatible with "pg_ctlcluster" (specifically, using
+postgres  |        major-version-specific directory names).  This better reflects how
+postgres  |        PostgreSQL itself works, and how upgrades are to be performed.
+postgres  | 
+postgres  |        See also https://github.com/docker-library/postgres/pull/1259
+postgres  | 
+postgres  |        Counter to that, there appears to be PostgreSQL data in:
+postgres  |          /var/lib/postgresql/data (unused mount/volume)
+postgres  | 
+postgres  |        This is usually the result of upgrading the Docker image without
+postgres  |        upgrading the underlying database using "pg_upgrade" (which requires both
+postgres  |        versions).
+postgres  | 
+postgres  |        The suggested container configuration for 18+ is to place a single mount
+postgres  |        at /var/lib/postgresql which will then place PostgreSQL data in a
+postgres  |        subdirectory, allowing usage of "pg_upgrade --link" without mount point
+postgres  |        boundary issues.
+postgres  | 
+postgres  |        See https://github.com/docker-library/postgres/issues/37 for a (long)
+postgres  |        discussion around this process, and suggestions for how to do so.
+surrealdb  | onnxruntime cpuid_info warning: Unknown CPU vendor. cpuinfo_vendor value: 0
+surrealdb  | 
+surrealdb  |  .d8888b.                                             888 8888888b.  888888b.
+surrealdb  | d88P  Y88b                                            888 888  'Y88b 888  '88b
+surrealdb  | Y88b.                                                 888 888    888 888  .88P
+surrealdb  |  'Y888b.   888  888 888d888 888d888  .d88b.   8888b.  888 888    888 8888888K.
+surrealdb  |     'Y88b. 888  888 888P'   888P'   d8P  Y8b     '88b 888 888    888 888  'Y88b
+surrealdb  |       '888 888  888 888     888     88888888 .d888888 888 888    888 888    888
+surrealdb  | Y88b  d88P Y88b 888 888     888     Y8b.     888  888 888 888  .d88P 888   d88P
+surrealdb  |  'Y8888P'   'Y88888 888     888      'Y8888  'Y888888 888 8888888P'  8888888P'
+surrealdb  | 
+surrealdb  | 
+surrealdb  | [2m2026-03-13T13:40:52.155643Z[0m [32m INFO[0m [2msurrealdb_server::env[0m[2m:[0m Running 3.0.3 for linux on aarch64
+surrealdb  | [2m2026-03-13T13:40:52.155722Z[0m [32m INFO[0m [2msurrealdb::core::kvs::ds[0m[2m:[0m Starting kvs store at relative path rocksdb://var/lib/surrealdb
+surrealdb  | [2m2026-03-13T13:40:52.163836Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Background thread count: 8
+surrealdb  | [2m2026-03-13T13:40:52.169158Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Maximum background jobs count: 16
+surrealdb  | [2m2026-03-13T13:40:52.169174Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Maximum number of open files: 1024
+surrealdb  | [2m2026-03-13T13:40:52.169192Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Number of log files to keep: 10
+surrealdb  | [2m2026-03-13T13:40:52.169197Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Target file size for compaction: 67108864
+surrealdb  | [2m2026-03-13T13:40:52.169201Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Target file size compaction multiplier: 2
+surrealdb  | [2m2026-03-13T13:40:52.169203Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Number of files to trigger compaction: 4
+surrealdb  | [2m2026-03-13T13:40:52.194484Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Compaction readahead size: 16777216
+surrealdb  | [2m2026-03-13T13:40:52.194509Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Maximum concurrent subcompactions: 4
+surrealdb  | [2m2026-03-13T13:40:52.194512Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Use separate thread queues: true
+surrealdb  | [2m2026-03-13T13:40:52.194515Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Enable separation of keys and values: true
+surrealdb  | [2m2026-03-13T13:40:52.194517Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Minimum blob value size: 4096
+surrealdb  | [2m2026-03-13T13:40:52.194519Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Target blob file size: 268435456
+surrealdb  | [2m2026-03-13T13:40:52.194521Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Enable blob garbage collection: true
+surrealdb  | [2m2026-03-13T13:40:52.194539Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Blob GC age cutoff: 0.5
+surrealdb  | [2m2026-03-13T13:40:52.194548Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Blob GC force threshold: 0.5
+surrealdb  | [2m2026-03-13T13:40:52.194551Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Blob compaction readahead size: 0
+surrealdb  | [2m2026-03-13T13:40:52.194553Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Write-ahead-log file size limit: 0MB
+surrealdb  | [2m2026-03-13T13:40:52.194554Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Allow concurrent memtable writes: true
+surrealdb  | [2m2026-03-13T13:40:52.194560Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Avoid unnecessary blocking IO: true
+surrealdb  | [2m2026-03-13T13:40:52.194567Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Allow adaptive write thread yielding: true
+surrealdb  | [2m2026-03-13T13:40:52.194571Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Setting delete compaction factory: 1000 / 50 (0.5)
+surrealdb  | [2m2026-03-13T13:40:52.194590Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Setting compaction style: level
+surrealdb  | [2m2026-03-13T13:40:52.194594Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Setting compression level
+surrealdb  | [2m2026-03-13T13:40:52.194596Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Setting storage engine log level: warn
+surrealdb  | [2m2026-03-13T13:40:52.201056Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: block cache size: 8342695936B
+surrealdb  | [2m2026-03-13T13:40:52.201076Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: write buffer size: 134217728B
+surrealdb  | [2m2026-03-13T13:40:52.201079Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: maximum write buffers: 8
+surrealdb  | [2m2026-03-13T13:40:52.201081Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: minimum write buffers to merge: 2
+surrealdb  | [2m2026-03-13T13:40:52.201083Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: total memory limit: 9416437760
+surrealdb  | [2m2026-03-13T13:40:52.201219Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Disk space manager: disabled
+surrealdb  | [2m2026-03-13T13:40:52.201224Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Sync mode: every transaction commit
+surrealdb  | [2m2026-03-13T13:40:52.201227Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Grouped commit: enabled (timeout=5000000ns, wait_threshold=12, max_batch_size=4096)
+surrealdb  | [2m2026-03-13T13:40:52.203021Z[0m [31mERROR[0m [2msurrealdb_server::cli[0m[2m:[0m There was a problem with a transaction: IO error: While open a file for appending: var/lib/surrealdb/LOG: Permission denied
+surrealdb  | Goodbye!
+surrealdb  | onnxruntime cpuid_info warning: Unknown CPU vendor. cpuinfo_vendor value: 0
+surrealdb  | 
+surrealdb  |  .d8888b.                                             888 8888888b.  888888b.
+surrealdb  | d88P  Y88b                                            888 888  'Y88b 888  '88b
+surrealdb  | Y88b.                                                 888 888    888 888  .88P
+surrealdb  |  'Y888b.   888  888 888d888 888d888  .d88b.   8888b.  888 888    888 8888888K.
+surrealdb  |     'Y88b. 888  888 888P'   888P'   d8P  Y8b     '88b 888 888    888 888  'Y88b
+surrealdb  |       '888 888  888 888     888     88888888 .d888888 888 888    888 888    888
+surrealdb  | Y88b  d88P Y88b 888 888     888     Y8b.     888  888 888 888  .d88P 888   d88P
+surrealdb  |  'Y8888P'   'Y88888 888     888      'Y8888  'Y888888 888 8888888P'  8888888P'
+surrealdb  | 
+surrealdb  | 
+surrealdb  | [2m2026-03-13T13:40:52.584721Z[0m [32m INFO[0m [2msurrealdb_server::env[0m[2m:[0m Running 3.0.3 for linux on aarch64
+surrealdb  | [2m2026-03-13T13:40:52.584752Z[0m [32m INFO[0m [2msurrealdb::core::kvs::ds[0m[2m:[0m Starting kvs store at relative path rocksdb://var/lib/surrealdb
+surrealdb  | [2m2026-03-13T13:40:52.585294Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Background thread count: 8
+surrealdb  | [2m2026-03-13T13:40:52.595904Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Maximum background jobs count: 16
+surrealdb  | [2m2026-03-13T13:40:52.595913Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Maximum number of open files: 1024
+surrealdb  | [2m2026-03-13T13:40:52.595923Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Number of log files to keep: 10
+surrealdb  | [2m2026-03-13T13:40:52.595925Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Target file size for compaction: 67108864
+surrealdb  | [2m2026-03-13T13:40:52.595926Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Target file size compaction multiplier: 2
+surrealdb  | [2m2026-03-13T13:40:52.595927Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Number of files to trigger compaction: 4
+surrealdb  | [2m2026-03-13T13:40:52.601330Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Compaction readahead size: 16777216
+surrealdb  | [2m2026-03-13T13:40:52.601340Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Maximum concurrent subcompactions: 4
+surrealdb  | [2m2026-03-13T13:40:52.601342Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Use separate thread queues: true
+surrealdb  | [2m2026-03-13T13:40:52.601343Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Enable separation of keys and values: true
+surrealdb  | [2m2026-03-13T13:40:52.601344Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Minimum blob value size: 4096
+surrealdb  | [2m2026-03-13T13:40:52.601344Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Target blob file size: 268435456
+surrealdb  | [2m2026-03-13T13:40:52.601346Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Enable blob garbage collection: true
+surrealdb  | [2m2026-03-13T13:40:52.601350Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Blob GC age cutoff: 0.5
+surrealdb  | [2m2026-03-13T13:40:52.601352Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Blob GC force threshold: 0.5
+surrealdb  | [2m2026-03-13T13:40:52.601352Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Blob compaction readahead size: 0
+surrealdb  | [2m2026-03-13T13:40:52.601353Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Write-ahead-log file size limit: 0MB
+surrealdb  | [2m2026-03-13T13:40:52.601354Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Allow concurrent memtable writes: true
+surrealdb  | [2m2026-03-13T13:40:52.601355Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Avoid unnecessary blocking IO: true
+surrealdb  | [2m2026-03-13T13:40:52.601355Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Allow adaptive write thread yielding: true
+surrealdb  | [2m2026-03-13T13:40:52.601357Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Setting delete compaction factory: 1000 / 50 (0.5)
+surrealdb  | [2m2026-03-13T13:40:52.601362Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Setting compaction style: level
+surrealdb  | [2m2026-03-13T13:40:52.601363Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Setting compression level
+surrealdb  | [2m2026-03-13T13:40:52.601364Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Setting storage engine log level: warn
+surrealdb  | [2m2026-03-13T13:40:52.604019Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: block cache size: 8342695936B
+surrealdb  | [2m2026-03-13T13:40:52.604026Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: write buffer size: 134217728B
+surrealdb  | [2m2026-03-13T13:40:52.604027Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: maximum write buffers: 8
+surrealdb  | [2m2026-03-13T13:40:52.604028Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: minimum write buffers to merge: 2
+surrealdb  | [2m2026-03-13T13:40:52.604028Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: total memory limit: 9416437760
+surrealdb  | [2m2026-03-13T13:40:52.604117Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Disk space manager: disabled
+surrealdb  | [2m2026-03-13T13:40:52.604133Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Sync mode: every transaction commit
+surrealdb  | [2m2026-03-13T13:40:52.604137Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Grouped commit: enabled (timeout=5000000ns, wait_threshold=12, max_batch_size=4096)
+surrealdb  | [2m2026-03-13T13:40:52.607524Z[0m [31mERROR[0m [2msurrealdb_server::cli[0m[2m:[0m There was a problem with a transaction: IO error: While open a file for appending: var/lib/surrealdb/LOG: Permission denied
+surrealdb  | Goodbye!
+surrealdb  | onnxruntime cpuid_info warning: Unknown CPU vendor. cpuinfo_vendor value: 0
+surrealdb  | 
+surrealdb  |  .d8888b.                                             888 8888888b.  888888b.
+surrealdb  | d88P  Y88b                                            888 888  'Y88b 888  '88b
+surrealdb  | Y88b.                                                 888 888    888 888  .88P
+surrealdb  |  'Y888b.   888  888 888d888 888d888  .d88b.   8888b.  888 888    888 8888888K.
+surrealdb  |     'Y88b. 888  888 888P'   888P'   d8P  Y8b     '88b 888 888    888 888  'Y88b
+surrealdb  |       '888 888  888 888     888     88888888 .d888888 888 888    888 888    888
+surrealdb  | Y88b  d88P Y88b 888 888     888     Y8b.     888  888 888 888  .d88P 888   d88P
+surrealdb  |  'Y8888P'   'Y88888 888     888      'Y8888  'Y888888 888 8888888P'  8888888P'
+surrealdb  | 
+surrealdb  | 
+surrealdb  | [2m2026-03-13T13:40:53.197333Z[0m [32m INFO[0m [2msurrealdb_server::env[0m[2m:[0m Running 3.0.3 for linux on aarch64
+surrealdb  | [2m2026-03-13T13:40:53.197377Z[0m [32m INFO[0m [2msurrealdb::core::kvs::ds[0m[2m:[0m Starting kvs store at relative path rocksdb://var/lib/surrealdb
+surrealdb  | [2m2026-03-13T13:40:53.204037Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Background thread count: 8
+surrealdb  | [2m2026-03-13T13:40:53.214973Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Maximum background jobs count: 16
+surrealdb  | [2m2026-03-13T13:40:53.214981Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Maximum number of open files: 1024
+surrealdb  | [2m2026-03-13T13:40:53.214984Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Number of log files to keep: 10
+surrealdb  | [2m2026-03-13T13:40:53.214985Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Target file size for compaction: 67108864
+surrealdb  | [2m2026-03-13T13:40:53.214986Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Target file size compaction multiplier: 2
+surrealdb  | [2m2026-03-13T13:40:53.214987Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Number of files to trigger compaction: 4
+surrealdb  | [2m2026-03-13T13:40:53.216722Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Compaction readahead size: 16777216
+surrealdb  | [2m2026-03-13T13:40:53.216732Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Maximum concurrent subcompactions: 4
+surrealdb  | [2m2026-03-13T13:40:53.216733Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Use separate thread queues: true
+surrealdb  | [2m2026-03-13T13:40:53.216735Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Enable separation of keys and values: true
+surrealdb  | [2m2026-03-13T13:40:53.216736Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Minimum blob value size: 4096
+surrealdb  | [2m2026-03-13T13:40:53.216737Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Target blob file size: 268435456
+surrealdb  | [2m2026-03-13T13:40:53.216738Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Enable blob garbage collection: true
+surrealdb  | [2m2026-03-13T13:40:53.216743Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Blob GC age cutoff: 0.5
+surrealdb  | [2m2026-03-13T13:40:53.216745Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Blob GC force threshold: 0.5
+surrealdb  | [2m2026-03-13T13:40:53.216746Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Blob compaction readahead size: 0
+surrealdb  | [2m2026-03-13T13:40:53.216747Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Write-ahead-log file size limit: 0MB
+surrealdb  | [2m2026-03-13T13:40:53.216748Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Allow concurrent memtable writes: true
+surrealdb  | [2m2026-03-13T13:40:53.216749Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Avoid unnecessary blocking IO: true
+surrealdb  | [2m2026-03-13T13:40:53.216750Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Allow adaptive write thread yielding: true
+surrealdb  | [2m2026-03-13T13:40:53.216751Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Setting delete compaction factory: 1000 / 50 (0.5)
+surrealdb  | [2m2026-03-13T13:40:53.216756Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Setting compaction style: level
+surrealdb  | [2m2026-03-13T13:40:53.216758Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Setting compression level
+surrealdb  | [2m2026-03-13T13:40:53.216759Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Setting storage engine log level: warn
+surrealdb  | [2m2026-03-13T13:40:53.219016Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: block cache size: 8342695936B
+surrealdb  | [2m2026-03-13T13:40:53.219023Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: write buffer size: 134217728B
+surrealdb  | [2m2026-03-13T13:40:53.219024Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: maximum write buffers: 8
+surrealdb  | [2m2026-03-13T13:40:53.219024Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: minimum write buffers to merge: 2
+surrealdb  | [2m2026-03-13T13:40:53.219025Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: total memory limit: 9416437760
+surrealdb  | [2m2026-03-13T13:40:53.219060Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Disk space manager: disabled
+surrealdb  | [2m2026-03-13T13:40:53.219065Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Sync mode: every transaction commit
+surrealdb  | [2m2026-03-13T13:40:53.219067Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Grouped commit: enabled (timeout=5000000ns, wait_threshold=12, max_batch_size=4096)
+surrealdb  | [2m2026-03-13T13:40:53.222726Z[0m [31mERROR[0m [2msurrealdb_server::cli[0m[2m:[0m There was a problem with a transaction: IO error: While open a file for appending: var/lib/surrealdb/LOG: Permission denied
+surrealdb  | Goodbye!
+surrealdb  | onnxruntime cpuid_info warning: Unknown CPU vendor. cpuinfo_vendor value: 0
+surrealdb  | 
+surrealdb  |  .d8888b.                                             888 8888888b.  888888b.
+surrealdb  | d88P  Y88b                                            888 888  'Y88b 888  '88b
+surrealdb  | Y88b.                                                 888 888    888 888  .88P
+surrealdb  |  'Y888b.   888  888 888d888 888d888  .d88b.   8888b.  888 888    888 8888888K.
+surrealdb  |     'Y88b. 888  888 888P'   888P'   d8P  Y8b     '88b 888 888    888 888  'Y88b
+surrealdb  |       '888 888  888 888     888     88888888 .d888888 888 888    888 888    888
+surrealdb  | Y88b  d88P Y88b 888 888     888     Y8b.     888  888 888 888  .d88P 888   d88P
+surrealdb  |  'Y8888P'   'Y88888 888     888      'Y8888  'Y888888 888 8888888P'  8888888P'
+surrealdb  | 
+surrealdb  | 
+surrealdb  | [2m2026-03-13T13:40:53.788228Z[0m [32m INFO[0m [2msurrealdb_server::env[0m[2m:[0m Running 3.0.3 for linux on aarch64
+surrealdb  | [2m2026-03-13T13:40:53.788261Z[0m [32m INFO[0m [2msurrealdb::core::kvs::ds[0m[2m:[0m Starting kvs store at relative path rocksdb://var/lib/surrealdb
+surrealdb  | [2m2026-03-13T13:40:53.789059Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Background thread count: 8
+surrealdb  | [2m2026-03-13T13:40:53.789420Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Maximum background jobs count: 16
+surrealdb  | [2m2026-03-13T13:40:53.789428Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Maximum number of open files: 1024
+surrealdb  | [2m2026-03-13T13:40:53.789431Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Number of log files to keep: 10
+surrealdb  | [2m2026-03-13T13:40:53.789432Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Target file size for compaction: 67108864
+surrealdb  | [2m2026-03-13T13:40:53.789433Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Target file size compaction multiplier: 2
+surrealdb  | [2m2026-03-13T13:40:53.789433Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Number of files to trigger compaction: 4
+surrealdb  | [2m2026-03-13T13:40:53.790803Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Compaction readahead size: 16777216
+surrealdb  | [2m2026-03-13T13:40:53.790810Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Maximum concurrent subcompactions: 4
+surrealdb  | [2m2026-03-13T13:40:53.790811Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Use separate thread queues: true
+surrealdb  | [2m2026-03-13T13:40:53.790812Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Enable separation of keys and values: true
+surrealdb  | [2m2026-03-13T13:40:53.790814Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Minimum blob value size: 4096
+surrealdb  | [2m2026-03-13T13:40:53.790815Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Target blob file size: 268435456
+surrealdb  | [2m2026-03-13T13:40:53.790816Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Enable blob garbage collection: true
+surrealdb  | [2m2026-03-13T13:40:53.790820Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Blob GC age cutoff: 0.5
+surrealdb  | [2m2026-03-13T13:40:53.790822Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Blob GC force threshold: 0.5
+surrealdb  | [2m2026-03-13T13:40:53.790823Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Blob compaction readahead size: 0
+surrealdb  | [2m2026-03-13T13:40:53.790824Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Write-ahead-log file size limit: 0MB
+surrealdb  | [2m2026-03-13T13:40:53.790825Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Allow concurrent memtable writes: true
+surrealdb  | [2m2026-03-13T13:40:53.790826Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Avoid unnecessary blocking IO: true
+surrealdb  | [2m2026-03-13T13:40:53.790827Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Allow adaptive write thread yielding: true
+surrealdb  | [2m2026-03-13T13:40:53.790828Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Setting delete compaction factory: 1000 / 50 (0.5)
+surrealdb  | [2m2026-03-13T13:40:53.790832Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Setting compaction style: level
+surrealdb  | [2m2026-03-13T13:40:53.790833Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Setting compression level
+surrealdb  | [2m2026-03-13T13:40:53.790834Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Setting storage engine log level: warn
+surrealdb  | [2m2026-03-13T13:40:53.793230Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: block cache size: 8342695936B
+surrealdb  | [2m2026-03-13T13:40:53.793237Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: write buffer size: 134217728B
+surrealdb  | [2m2026-03-13T13:40:53.793238Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: maximum write buffers: 8
+surrealdb  | [2m2026-03-13T13:40:53.793239Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: minimum write buffers to merge: 2
+surrealdb  | [2m2026-03-13T13:40:53.793240Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: total memory limit: 9416437760
+surrealdb  | [2m2026-03-13T13:40:53.793272Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Disk space manager: disabled
+surrealdb  | [2m2026-03-13T13:40:53.793276Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Sync mode: every transaction commit
+surrealdb  | [2m2026-03-13T13:40:53.793278Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Grouped commit: enabled (timeout=5000000ns, wait_threshold=12, max_batch_size=4096)
+surrealdb  | [2m2026-03-13T13:40:53.793842Z[0m [31mERROR[0m [2msurrealdb_server::cli[0m[2m:[0m There was a problem with a transaction: IO error: While open a file for appending: var/lib/surrealdb/LOG: Permission denied
+surrealdb  | Goodbye!
+surrealdb  | onnxruntime cpuid_info warning: Unknown CPU vendor. cpuinfo_vendor value: 0
+surrealdb  | 
+surrealdb  |  .d8888b.                                             888 8888888b.  888888b.
+surrealdb  | d88P  Y88b                                            888 888  'Y88b 888  '88b
+surrealdb  | Y88b.                                                 888 888    888 888  .88P
+surrealdb  |  'Y888b.   888  888 888d888 888d888  .d88b.   8888b.  888 888    888 8888888K.
+surrealdb  |     'Y88b. 888  888 888P'   888P'   d8P  Y8b     '88b 888 888    888 888  'Y88b
+surrealdb  |       '888 888  888 888     888     88888888 .d888888 888 888    888 888    888
+surrealdb  | Y88b  d88P Y88b 888 888     888     Y8b.     888  888 888 888  .d88P 888   d88P
+surrealdb  |  'Y8888P'   'Y88888 888     888      'Y8888  'Y888888 888 8888888P'  8888888P'
+surrealdb  | 
+surrealdb  | 
+surrealdb  | [2m2026-03-13T13:40:54.843554Z[0m [32m INFO[0m [2msurrealdb_server::env[0m[2m:[0m Running 3.0.3 for linux on aarch64
+surrealdb  | [2m2026-03-13T13:40:54.843587Z[0m [32m INFO[0m [2msurrealdb::core::kvs::ds[0m[2m:[0m Starting kvs store at relative path rocksdb://var/lib/surrealdb
+surrealdb  | [2m2026-03-13T13:40:54.844362Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Background thread count: 8
+surrealdb  | [2m2026-03-13T13:40:54.844979Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Maximum background jobs count: 16
+surrealdb  | [2m2026-03-13T13:40:54.844986Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Maximum number of open files: 1024
+surrealdb  | [2m2026-03-13T13:40:54.844989Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Number of log files to keep: 10
+surrealdb  | [2m2026-03-13T13:40:54.844990Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Target file size for compaction: 67108864
+surrealdb  | [2m2026-03-13T13:40:54.844991Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Target file size compaction multiplier: 2
+surrealdb  | [2m2026-03-13T13:40:54.844992Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Number of files to trigger compaction: 4
+surrealdb  | [2m2026-03-13T13:40:54.846483Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Compaction readahead size: 16777216
+surrealdb  | [2m2026-03-13T13:40:54.846493Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Maximum concurrent subcompactions: 4
+surrealdb  | [2m2026-03-13T13:40:54.846495Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Use separate thread queues: true
+surrealdb  | [2m2026-03-13T13:40:54.846496Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Enable separation of keys and values: true
+surrealdb  | [2m2026-03-13T13:40:54.846502Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Minimum blob value size: 4096
+surrealdb  | [2m2026-03-13T13:40:54.846503Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Target blob file size: 268435456
+surrealdb  | [2m2026-03-13T13:40:54.846505Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Enable blob garbage collection: true
+surrealdb  | [2m2026-03-13T13:40:54.846509Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Blob GC age cutoff: 0.5
+surrealdb  | [2m2026-03-13T13:40:54.846510Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Blob GC force threshold: 0.5
+surrealdb  | [2m2026-03-13T13:40:54.846511Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Blob compaction readahead size: 0
+surrealdb  | [2m2026-03-13T13:40:54.846512Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Write-ahead-log file size limit: 0MB
+surrealdb  | [2m2026-03-13T13:40:54.846513Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Allow concurrent memtable writes: true
+surrealdb  | [2m2026-03-13T13:40:54.846514Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Avoid unnecessary blocking IO: true
+surrealdb  | [2m2026-03-13T13:40:54.846515Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Allow adaptive write thread yielding: true
+surrealdb  | [2m2026-03-13T13:40:54.846516Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Setting delete compaction factory: 1000 / 50 (0.5)
+surrealdb  | [2m2026-03-13T13:40:54.846521Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Setting compaction style: level
+surrealdb  | [2m2026-03-13T13:40:54.846521Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Setting compression level
+surrealdb  | [2m2026-03-13T13:40:54.846523Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Setting storage engine log level: warn
+surrealdb  | [2m2026-03-13T13:40:54.848696Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: block cache size: 8342695936B
+surrealdb  | [2m2026-03-13T13:40:54.848701Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: write buffer size: 134217728B
+surrealdb  | [2m2026-03-13T13:40:54.848702Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: maximum write buffers: 8
+surrealdb  | [2m2026-03-13T13:40:54.848703Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: minimum write buffers to merge: 2
+surrealdb  | [2m2026-03-13T13:40:54.848704Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: total memory limit: 9416437760
+surrealdb  | [2m2026-03-13T13:40:54.848734Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Disk space manager: disabled
+surrealdb  | [2m2026-03-13T13:40:54.848738Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Sync mode: every transaction commit
+surrealdb  | [2m2026-03-13T13:40:54.848739Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Grouped commit: enabled (timeout=5000000ns, wait_threshold=12, max_batch_size=4096)
+surrealdb  | Goodbye!
+surrealdb  | [2m2026-03-13T13:40:54.854810Z[0m [31mERROR[0m [2msurrealdb_server::cli[0m[2m:[0m There was a problem with a transaction: IO error: While open a file for appending: var/lib/surrealdb/LOG: Permission denied
+surrealdb  | onnxruntime cpuid_info warning: Unknown CPU vendor. cpuinfo_vendor value: 0
+surrealdb  | 
+surrealdb  |  .d8888b.                                             888 8888888b.  888888b.
+surrealdb  | d88P  Y88b                                            888 888  'Y88b 888  '88b
+surrealdb  | Y88b.                                                 888 888    888 888  .88P
+surrealdb  |  'Y888b.   888  888 888d888 888d888  .d88b.   8888b.  888 888    888 8888888K.
+surrealdb  |     'Y88b. 888  888 888P'   888P'   d8P  Y8b     '88b 888 888    888 888  'Y88b
+surrealdb  |       '888 888  888 888     888     88888888 .d888888 888 888    888 888    888
+surrealdb  | Y88b  d88P Y88b 888 888     888     Y8b.     888  888 888 888  .d88P 888   d88P
+surrealdb  |  'Y8888P'   'Y88888 888     888      'Y8888  'Y888888 888 8888888P'  8888888P'
+surrealdb  | 
+surrealdb  | 
+surrealdb  | [2m2026-03-13T13:40:56.821481Z[0m [32m INFO[0m [2msurrealdb_server::env[0m[2m:[0m Running 3.0.3 for linux on aarch64
+surrealdb  | [2m2026-03-13T13:40:56.821517Z[0m [32m INFO[0m [2msurrealdb::core::kvs::ds[0m[2m:[0m Starting kvs store at relative path rocksdb://var/lib/surrealdb
+surrealdb  | [2m2026-03-13T13:40:56.822045Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Background thread count: 8
+surrealdb  | [2m2026-03-13T13:40:56.823205Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Maximum background jobs count: 16
+surrealdb  | [2m2026-03-13T13:40:56.823212Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Maximum number of open files: 1024
+surrealdb  | [2m2026-03-13T13:40:56.823217Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Number of log files to keep: 10
+surrealdb  | [2m2026-03-13T13:40:56.823220Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Target file size for compaction: 67108864
+surrealdb  | [2m2026-03-13T13:40:56.823221Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Target file size compaction multiplier: 2
+surrealdb  | [2m2026-03-13T13:40:56.823222Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Number of files to trigger compaction: 4
+surrealdb  | [2m2026-03-13T13:40:56.824665Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Compaction readahead size: 16777216
+surrealdb  | [2m2026-03-13T13:40:56.824674Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Maximum concurrent subcompactions: 4
+surrealdb  | [2m2026-03-13T13:40:56.824675Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Use separate thread queues: true
+surrealdb  | [2m2026-03-13T13:40:56.824677Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Enable separation of keys and values: true
+surrealdb  | [2m2026-03-13T13:40:56.824678Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Minimum blob value size: 4096
+surrealdb  | [2m2026-03-13T13:40:56.824679Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Target blob file size: 268435456
+surrealdb  | [2m2026-03-13T13:40:56.824680Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Enable blob garbage collection: true
+surrealdb  | [2m2026-03-13T13:40:56.824685Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Blob GC age cutoff: 0.5
+surrealdb  | [2m2026-03-13T13:40:56.824687Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Blob GC force threshold: 0.5
+surrealdb  | [2m2026-03-13T13:40:56.824688Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Blob compaction readahead size: 0
+surrealdb  | [2m2026-03-13T13:40:56.824690Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Write-ahead-log file size limit: 0MB
+surrealdb  | [2m2026-03-13T13:40:56.824690Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Allow concurrent memtable writes: true
+surrealdb  | [2m2026-03-13T13:40:56.824691Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Avoid unnecessary blocking IO: true
+surrealdb  | [2m2026-03-13T13:40:56.824692Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Allow adaptive write thread yielding: true
+surrealdb  | [2m2026-03-13T13:40:56.824693Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Setting delete compaction factory: 1000 / 50 (0.5)
+surrealdb  | [2m2026-03-13T13:40:56.824698Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Setting compaction style: level
+surrealdb  | [2m2026-03-13T13:40:56.824698Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Setting compression level
+surrealdb  | [2m2026-03-13T13:40:56.824700Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Setting storage engine log level: warn
+surrealdb  | [2m2026-03-13T13:40:56.826845Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: block cache size: 8342695936B
+surrealdb  | [2m2026-03-13T13:40:56.826851Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: write buffer size: 134217728B
+surrealdb  | [2m2026-03-13T13:40:56.826852Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: maximum write buffers: 8
+surrealdb  | [2m2026-03-13T13:40:56.826853Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: minimum write buffers to merge: 2
+surrealdb  | [2m2026-03-13T13:40:56.826854Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: total memory limit: 9416437760
+surrealdb  | [2m2026-03-13T13:40:56.826892Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Disk space manager: disabled
+surrealdb  | [2m2026-03-13T13:40:56.826898Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Sync mode: every transaction commit
+surrealdb  | [2m2026-03-13T13:40:56.826900Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Grouped commit: enabled (timeout=5000000ns, wait_threshold=12, max_batch_size=4096)
+surrealdb  | [2m2026-03-13T13:40:56.827382Z[0m [31mERROR[0m [2msurrealdb_server::cli[0m[2m:[0m There was a problem with a transaction: IO error: While open a file for appending: var/lib/surrealdb/LOG: Permission denied
+surrealdb  | Goodbye!
+surrealdb  | onnxruntime cpuid_info warning: Unknown CPU vendor. cpuinfo_vendor value: 0
+surrealdb  | 
+surrealdb  |  .d8888b.                                             888 8888888b.  888888b.
+surrealdb  | d88P  Y88b                                            888 888  'Y88b 888  '88b
+surrealdb  | Y88b.                                                 888 888    888 888  .88P
+surrealdb  |  'Y888b.   888  888 888d888 888d888  .d88b.   8888b.  888 888    888 8888888K.
+surrealdb  |     'Y88b. 888  888 888P'   888P'   d8P  Y8b     '88b 888 888    888 888  'Y88b
+surrealdb  |       '888 888  888 888     888     88888888 .d888888 888 888    888 888    888
+surrealdb  | Y88b  d88P Y88b 888 888     888     Y8b.     888  888 888 888  .d88P 888   d88P
+surrealdb  |  'Y8888P'   'Y88888 888     888      'Y8888  'Y888888 888 8888888P'  8888888P'
+surrealdb  | 
+surrealdb  | 
+surrealdb  | [2m2026-03-13T13:41:00.246346Z[0m [32m INFO[0m [2msurrealdb_server::env[0m[2m:[0m Running 3.0.3 for linux on aarch64
+surrealdb  | [2m2026-03-13T13:41:00.246372Z[0m [32m INFO[0m [2msurrealdb::core::kvs::ds[0m[2m:[0m Starting kvs store at relative path rocksdb://var/lib/surrealdb
+surrealdb  | [2m2026-03-13T13:41:00.246818Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Background thread count: 8
+surrealdb  | [2m2026-03-13T13:41:00.247574Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Maximum background jobs count: 16
+surrealdb  | [2m2026-03-13T13:41:00.247584Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Maximum number of open files: 1024
+surrealdb  | [2m2026-03-13T13:41:00.247588Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Number of log files to keep: 10
+surrealdb  | [2m2026-03-13T13:41:00.247589Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Target file size for compaction: 67108864
+surrealdb  | [2m2026-03-13T13:41:00.247590Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Target file size compaction multiplier: 2
+surrealdb  | [2m2026-03-13T13:41:00.247591Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Number of files to trigger compaction: 4
+surrealdb  | [2m2026-03-13T13:41:00.249031Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Compaction readahead size: 16777216
+surrealdb  | [2m2026-03-13T13:41:00.249039Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Maximum concurrent subcompactions: 4
+surrealdb  | [2m2026-03-13T13:41:00.249040Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Use separate thread queues: true
+surrealdb  | [2m2026-03-13T13:41:00.249041Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Enable separation of keys and values: true
+surrealdb  | [2m2026-03-13T13:41:00.249042Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Minimum blob value size: 4096
+surrealdb  | [2m2026-03-13T13:41:00.249043Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Target blob file size: 268435456
+surrealdb  | [2m2026-03-13T13:41:00.249044Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Enable blob garbage collection: true
+surrealdb  | [2m2026-03-13T13:41:00.249047Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Blob GC age cutoff: 0.5
+surrealdb  | [2m2026-03-13T13:41:00.249049Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Blob GC force threshold: 0.5
+surrealdb  | [2m2026-03-13T13:41:00.249050Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Blob compaction readahead size: 0
+surrealdb  | [2m2026-03-13T13:41:00.249051Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Write-ahead-log file size limit: 0MB
+surrealdb  | [2m2026-03-13T13:41:00.249051Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Allow concurrent memtable writes: true
+surrealdb  | [2m2026-03-13T13:41:00.249052Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Avoid unnecessary blocking IO: true
+surrealdb  | [2m2026-03-13T13:41:00.249053Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Allow adaptive write thread yielding: true
+surrealdb  | [2m2026-03-13T13:41:00.249054Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Setting delete compaction factory: 1000 / 50 (0.5)
+surrealdb  | [2m2026-03-13T13:41:00.249058Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Setting compaction style: level
+surrealdb  | [2m2026-03-13T13:41:00.249059Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Setting compression level
+surrealdb  | [2m2026-03-13T13:41:00.249060Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Setting storage engine log level: warn
+surrealdb  | [2m2026-03-13T13:41:00.251475Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: block cache size: 8342695936B
+surrealdb  | [2m2026-03-13T13:41:00.251483Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: write buffer size: 134217728B
+surrealdb  | [2m2026-03-13T13:41:00.251484Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: maximum write buffers: 8
+surrealdb  | [2m2026-03-13T13:41:00.251485Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: minimum write buffers to merge: 2
+surrealdb  | [2m2026-03-13T13:41:00.251486Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: total memory limit: 9416437760
+surrealdb  | [2m2026-03-13T13:41:00.251518Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Disk space manager: disabled
+surrealdb  | [2m2026-03-13T13:41:00.251522Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Sync mode: every transaction commit
+surrealdb  | [2m2026-03-13T13:41:00.251523Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Grouped commit: enabled (timeout=5000000ns, wait_threshold=12, max_batch_size=4096)
+surrealdb  | [2m2026-03-13T13:41:00.252056Z[0m [31mERROR[0m [2msurrealdb_server::cli[0m[2m:[0m There was a problem with a transaction: IO error: While open a file for appending: var/lib/surrealdb/LOG: Permission denied
+surrealdb  | Goodbye!
+surrealdb  | onnxruntime cpuid_info warning: Unknown CPU vendor. cpuinfo_vendor value: 0
+surrealdb  | 
+surrealdb  |  .d8888b.                                             888 8888888b.  888888b.
+surrealdb  | d88P  Y88b                                            888 888  'Y88b 888  '88b
+surrealdb  | Y88b.                                                 888 888    888 888  .88P
+surrealdb  |  'Y888b.   888  888 888d888 888d888  .d88b.   8888b.  888 888    888 8888888K.
+surrealdb  |     'Y88b. 888  888 888P'   888P'   d8P  Y8b     '88b 888 888    888 888  'Y88b
+surrealdb  |       '888 888  888 888     888     88888888 .d888888 888 888    888 888    888
+surrealdb  | Y88b  d88P Y88b 888 888     888     Y8b.     888  888 888 888  .d88P 888   d88P
+surrealdb  |  'Y8888P'   'Y88888 888     888      'Y8888  'Y888888 888 8888888P'  8888888P'
+surrealdb  | 
+surrealdb  | 
+surrealdb  | [2m2026-03-13T13:41:06.841013Z[0m [32m INFO[0m [2msurrealdb_server::env[0m[2m:[0m Running 3.0.3 for linux on aarch64
+surrealdb  | [2m2026-03-13T13:41:06.841039Z[0m [32m INFO[0m [2msurrealdb::core::kvs::ds[0m[2m:[0m Starting kvs store at relative path rocksdb://var/lib/surrealdb
+surrealdb  | [2m2026-03-13T13:41:06.841825Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Background thread count: 8
+surrealdb  | [2m2026-03-13T13:41:06.842363Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Maximum background jobs count: 16
+surrealdb  | [2m2026-03-13T13:41:06.842369Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Maximum number of open files: 1024
+surrealdb  | [2m2026-03-13T13:41:06.842373Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Number of log files to keep: 10
+surrealdb  | [2m2026-03-13T13:41:06.842374Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Target file size for compaction: 67108864
+surrealdb  | [2m2026-03-13T13:41:06.842375Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Target file size compaction multiplier: 2
+surrealdb  | [2m2026-03-13T13:41:06.842376Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Number of files to trigger compaction: 4
+surrealdb  | [2m2026-03-13T13:41:06.843814Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Compaction readahead size: 16777216
+surrealdb  | [2m2026-03-13T13:41:06.843820Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Maximum concurrent subcompactions: 4
+surrealdb  | [2m2026-03-13T13:41:06.843822Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Use separate thread queues: true
+surrealdb  | [2m2026-03-13T13:41:06.843823Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Enable separation of keys and values: true
+surrealdb  | [2m2026-03-13T13:41:06.843825Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Minimum blob value size: 4096
+surrealdb  | [2m2026-03-13T13:41:06.843826Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Target blob file size: 268435456
+surrealdb  | [2m2026-03-13T13:41:06.843827Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Enable blob garbage collection: true
+surrealdb  | [2m2026-03-13T13:41:06.843831Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Blob GC age cutoff: 0.5
+surrealdb  | [2m2026-03-13T13:41:06.843833Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Blob GC force threshold: 0.5
+surrealdb  | [2m2026-03-13T13:41:06.843834Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Blob compaction readahead size: 0
+surrealdb  | [2m2026-03-13T13:41:06.843836Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Write-ahead-log file size limit: 0MB
+surrealdb  | [2m2026-03-13T13:41:06.843837Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Allow concurrent memtable writes: true
+surrealdb  | [2m2026-03-13T13:41:06.843837Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Avoid unnecessary blocking IO: true
+surrealdb  | [2m2026-03-13T13:41:06.843838Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Allow adaptive write thread yielding: true
+surrealdb  | [2m2026-03-13T13:41:06.843840Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Setting delete compaction factory: 1000 / 50 (0.5)
+surrealdb  | [2m2026-03-13T13:41:06.843844Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Setting compaction style: level
+surrealdb  | [2m2026-03-13T13:41:06.843844Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Setting compression level
+surrealdb  | [2m2026-03-13T13:41:06.843846Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Setting storage engine log level: warn
+surrealdb  | [2m2026-03-13T13:41:06.846296Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: block cache size: 8342695936B
+surrealdb  | [2m2026-03-13T13:41:06.846303Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: write buffer size: 134217728B
+surrealdb  | [2m2026-03-13T13:41:06.846303Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: maximum write buffers: 8
+surrealdb  | [2m2026-03-13T13:41:06.846304Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: minimum write buffers to merge: 2
+surrealdb  | [2m2026-03-13T13:41:06.846305Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: total memory limit: 9416437760
+surrealdb  | [2m2026-03-13T13:41:06.846341Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Disk space manager: disabled
+surrealdb  | [2m2026-03-13T13:41:06.846346Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Sync mode: every transaction commit
+surrealdb  | [2m2026-03-13T13:41:06.846348Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Grouped commit: enabled (timeout=5000000ns, wait_threshold=12, max_batch_size=4096)
+surrealdb  | [2m2026-03-13T13:41:06.847114Z[0m [31mERROR[0m [2msurrealdb_server::cli[0m[2m:[0m There was a problem with a transaction: IO error: While open a file for appending: var/lib/surrealdb/LOG: Permission denied
+surrealdb  | Goodbye!
+surrealdb  | onnxruntime cpuid_info warning: Unknown CPU vendor. cpuinfo_vendor value: 0
+surrealdb  | 
+surrealdb  |  .d8888b.                                             888 8888888b.  888888b.
+surrealdb  | d88P  Y88b                                            888 888  'Y88b 888  '88b
+surrealdb  | Y88b.                                                 888 888    888 888  .88P
+surrealdb  |  'Y888b.   888  888 888d888 888d888  .d88b.   8888b.  888 888    888 8888888K.
+surrealdb  |     'Y88b. 888  888 888P'   888P'   d8P  Y8b     '88b 888 888    888 888  'Y88b
+surrealdb  |       '888 888  888 888     888     88888888 .d888888 888 888    888 888    888
+surrealdb  | Y88b  d88P Y88b 888 888     888     Y8b.     888  888 888 888  .d88P 888   d88P
+surrealdb  |  'Y8888P'   'Y88888 888     888      'Y8888  'Y888888 888 8888888P'  8888888P'
+surrealdb  | 
+surrealdb  | 
+surrealdb  | [2m2026-03-13T13:41:19.820612Z[0m [32m INFO[0m [2msurrealdb_server::env[0m[2m:[0m Running 3.0.3 for linux on aarch64
+surrealdb  | [2m2026-03-13T13:41:19.820645Z[0m [32m INFO[0m [2msurrealdb::core::kvs::ds[0m[2m:[0m Starting kvs store at relative path rocksdb://var/lib/surrealdb
+surrealdb  | [2m2026-03-13T13:41:19.821425Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Background thread count: 8
+surrealdb  | [2m2026-03-13T13:41:19.821883Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Maximum background jobs count: 16
+surrealdb  | [2m2026-03-13T13:41:19.821890Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Maximum number of open files: 1024
+surrealdb  | [2m2026-03-13T13:41:19.821895Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Number of log files to keep: 10
+surrealdb  | [2m2026-03-13T13:41:19.821896Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Target file size for compaction: 67108864
+surrealdb  | [2m2026-03-13T13:41:19.821897Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Target file size compaction multiplier: 2
+surrealdb  | [2m2026-03-13T13:41:19.821898Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Number of files to trigger compaction: 4
+surrealdb  | [2m2026-03-13T13:41:19.823161Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Compaction readahead size: 16777216
+surrealdb  | [2m2026-03-13T13:41:19.823168Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Maximum concurrent subcompactions: 4
+surrealdb  | [2m2026-03-13T13:41:19.823169Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Use separate thread queues: true
+surrealdb  | [2m2026-03-13T13:41:19.823170Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Enable separation of keys and values: true
+surrealdb  | [2m2026-03-13T13:41:19.823172Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Minimum blob value size: 4096
+surrealdb  | [2m2026-03-13T13:41:19.823173Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Target blob file size: 268435456
+surrealdb  | [2m2026-03-13T13:41:19.823174Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Enable blob garbage collection: true
+surrealdb  | [2m2026-03-13T13:41:19.823178Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Blob GC age cutoff: 0.5
+surrealdb  | [2m2026-03-13T13:41:19.823180Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Blob GC force threshold: 0.5
+surrealdb  | [2m2026-03-13T13:41:19.823181Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Blob compaction readahead size: 0
+surrealdb  | [2m2026-03-13T13:41:19.823182Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Write-ahead-log file size limit: 0MB
+surrealdb  | [2m2026-03-13T13:41:19.823183Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Allow concurrent memtable writes: true
+surrealdb  | [2m2026-03-13T13:41:19.823184Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Avoid unnecessary blocking IO: true
+surrealdb  | [2m2026-03-13T13:41:19.823185Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Allow adaptive write thread yielding: true
+surrealdb  | [2m2026-03-13T13:41:19.823186Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Setting delete compaction factory: 1000 / 50 (0.5)
+surrealdb  | [2m2026-03-13T13:41:19.823197Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Setting compaction style: level
+surrealdb  | [2m2026-03-13T13:41:19.823198Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Setting compression level
+surrealdb  | [2m2026-03-13T13:41:19.823199Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Setting storage engine log level: warn
+surrealdb  | [2m2026-03-13T13:41:19.825308Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: block cache size: 8342695936B
+surrealdb  | [2m2026-03-13T13:41:19.825313Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: write buffer size: 134217728B
+surrealdb  | [2m2026-03-13T13:41:19.825314Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: maximum write buffers: 8
+surrealdb  | [2m2026-03-13T13:41:19.825315Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: minimum write buffers to merge: 2
+surrealdb  | [2m2026-03-13T13:41:19.825316Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: total memory limit: 9416437760
+surrealdb  | [2m2026-03-13T13:41:19.825341Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Disk space manager: disabled
+surrealdb  | [2m2026-03-13T13:41:19.825345Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Sync mode: every transaction commit
+surrealdb  | [2m2026-03-13T13:41:19.825346Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Grouped commit: enabled (timeout=5000000ns, wait_threshold=12, max_batch_size=4096)
+surrealdb  | [2m2026-03-13T13:41:19.825859Z[0m [31mERROR[0m [2msurrealdb_server::cli[0m[2m:[0m There was a problem with a transaction: IO error: While open a file for appending: var/lib/surrealdb/LOG: Permission denied
+surrealdb  | Goodbye!
+surrealdb  | onnxruntime cpuid_info warning: Unknown CPU vendor. cpuinfo_vendor value: 0
+surrealdb  | 
+surrealdb  |  .d8888b.                                             888 8888888b.  888888b.
+surrealdb  | d88P  Y88b                                            888 888  'Y88b 888  '88b
+surrealdb  | Y88b.                                                 888 888    888 888  .88P
+surrealdb  |  'Y888b.   888  888 888d888 888d888  .d88b.   8888b.  888 888    888 8888888K.
+surrealdb  |     'Y88b. 888  888 888P'   888P'   d8P  Y8b     '88b 888 888    888 888  'Y88b
+surrealdb  |       '888 888  888 888     888     88888888 .d888888 888 888    888 888    888
+surrealdb  | Y88b  d88P Y88b 888 888     888     Y8b.     888  888 888 888  .d88P 888   d88P
+surrealdb  |  'Y8888P'   'Y88888 888     888      'Y8888  'Y888888 888 8888888P'  8888888P'
+surrealdb  | 
+surrealdb  | 
+surrealdb  | [2m2026-03-13T13:41:45.602613Z[0m [32m INFO[0m [2msurrealdb_server::env[0m[2m:[0m Running 3.0.3 for linux on aarch64
+surrealdb  | [2m2026-03-13T13:41:45.602650Z[0m [32m INFO[0m [2msurrealdb::core::kvs::ds[0m[2m:[0m Starting kvs store at relative path rocksdb://var/lib/surrealdb
+surrealdb  | [2m2026-03-13T13:41:45.603541Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Background thread count: 8
+surrealdb  | [2m2026-03-13T13:41:45.604099Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Maximum background jobs count: 16
+surrealdb  | [2m2026-03-13T13:41:45.604106Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Maximum number of open files: 1024
+surrealdb  | [2m2026-03-13T13:41:45.604110Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Number of log files to keep: 10
+surrealdb  | [2m2026-03-13T13:41:45.604111Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Target file size for compaction: 67108864
+surrealdb  | [2m2026-03-13T13:41:45.604113Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Target file size compaction multiplier: 2
+surrealdb  | [2m2026-03-13T13:41:45.604114Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Number of files to trigger compaction: 4
+surrealdb  | [2m2026-03-13T13:41:45.605652Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Compaction readahead size: 16777216
+surrealdb  | [2m2026-03-13T13:41:45.605659Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Maximum concurrent subcompactions: 4
+surrealdb  | [2m2026-03-13T13:41:45.605661Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Use separate thread queues: true
+surrealdb  | [2m2026-03-13T13:41:45.605662Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Enable separation of keys and values: true
+surrealdb  | [2m2026-03-13T13:41:45.605664Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Minimum blob value size: 4096
+surrealdb  | [2m2026-03-13T13:41:45.605665Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Target blob file size: 268435456
+surrealdb  | [2m2026-03-13T13:41:45.605666Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Enable blob garbage collection: true
+surrealdb  | [2m2026-03-13T13:41:45.605670Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Blob GC age cutoff: 0.5
+surrealdb  | [2m2026-03-13T13:41:45.605672Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Blob GC force threshold: 0.5
+surrealdb  | [2m2026-03-13T13:41:45.605673Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Blob compaction readahead size: 0
+surrealdb  | [2m2026-03-13T13:41:45.605674Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Write-ahead-log file size limit: 0MB
+surrealdb  | [2m2026-03-13T13:41:45.605675Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Allow concurrent memtable writes: true
+surrealdb  | [2m2026-03-13T13:41:45.605676Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Avoid unnecessary blocking IO: true
+surrealdb  | [2m2026-03-13T13:41:45.605677Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Allow adaptive write thread yielding: true
+surrealdb  | [2m2026-03-13T13:41:45.605678Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Setting delete compaction factory: 1000 / 50 (0.5)
+surrealdb  | [2m2026-03-13T13:41:45.605682Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Setting compaction style: level
+surrealdb  | [2m2026-03-13T13:41:45.605683Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Setting compression level
+surrealdb  | [2m2026-03-13T13:41:45.605685Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Setting storage engine log level: warn
+surrealdb  | [2m2026-03-13T13:41:45.607860Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: block cache size: 8342695936B
+surrealdb  | [2m2026-03-13T13:41:45.607866Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: write buffer size: 134217728B
+surrealdb  | [2m2026-03-13T13:41:45.607867Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: maximum write buffers: 8
+surrealdb  | [2m2026-03-13T13:41:45.607868Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: minimum write buffers to merge: 2
+surrealdb  | [2m2026-03-13T13:41:45.607869Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Memory manager: total memory limit: 9416437760
+surrealdb  | [2m2026-03-13T13:41:45.607899Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Disk space manager: disabled
+surrealdb  | [2m2026-03-13T13:41:45.607903Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Sync mode: every transaction commit
+surrealdb  | [2m2026-03-13T13:41:45.607904Z[0m [32m INFO[0m [2msurrealdb::core::kvs::rocksdb[0m[2m:[0m Grouped commit: enabled (timeout=5000000ns, wait_threshold=12, max_batch_size=4096)
+surrealdb  | [2m2026-03-13T13:41:45.608492Z[0m [31mERROR[0m [2msurrealdb_server::cli[0m[2m:[0m There was a problem with a transaction: IO error: While open a file for appending: var/lib/surrealdb/LOG: Permission denied
+surrealdb  | Goodbye!
