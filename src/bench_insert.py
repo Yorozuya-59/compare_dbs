@@ -82,8 +82,16 @@ def insert_mysql(data, columns):
     
     print("[MySQL] 計測開始...")
     start_time = time.time()
-    cursor.executemany(query, data)
+    
+    # --- ここから修正：データを分割（チャンク）してインサート ---
+    chunk_size = 50000  # 5万件ずつ送信
+    for i in range(0, len(data), chunk_size):
+        chunk = data[i:i + chunk_size]
+        cursor.executemany(query, chunk)
+    
     conn.commit()
+    # --- 修正ここまで ---
+    
     end_time = time.time()
     
     print(f"✅ [MySQL] {len(data):,}件のInsert完了: {end_time - start_time:.4f} 秒\n")
