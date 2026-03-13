@@ -1,64 +1,84 @@
 import time
 import json
+import random
 import argparse
 import asyncio
 from datetime import datetime
 import numpy as np
 import polars as pl
 
-# データベースドライバー
 import mysql.connector
 import psycopg2
-import psycopg2.extras  # PostgreSQLの高速バルクインサート用
+import psycopg2.extras
 from pymongo import MongoClient
 import redis
 from surrealdb import Surreal
 
-def generate_dummy_data_fast(num_records):
-    print(f"{num_records:,}件のダミーデータを numpy/polars で生成中...")
+def generate_sensor_data(num_records, exclude_strings=False):
+    print(f"{num_records:,}件のセンサデータを生成中... (文字列除外: {exclude_strings})")
     start_gen = time.time()
     
     base_time = datetime.now()
     
+    # 1. 基本となる数値データの生成 (Device ID: 1〜1000, RSSI: -100.0〜-30.0)
     device_ints = np.random.randint(1, 1001, size=num_records)
-    x_coords = np.random.uniform(0.0, 100.0, size=num_records).astype(np.float32)
-    y_coords = np.random.uniform(0.0, 100.0, size=num_records).astype(np.float32)
+    rssi_vals = np.random.uniform(-100.0, -30.0, size=num_records).astype(np.float32)
     time_offsets = np.random.randint(0, 86400, size=num_records)
     
     df = pl.DataFrame({
-        "device_int": device_ints,
-        "x_coord": x_coords,
-        "y_coord": y_coords,
+        "device_id": device_ints,
+        "rssi": rssi_vals,
         "offset_sec": time_offsets
     })
     
-    df_final = df.with_columns(
-        device_id=pl.format("device_{}", pl.col("device_int").cast(pl.String).str.zfill(4)),
+    # 2. タイムスタンプの計算
+    df = df.with_columns(
         recorded_at=base_time - pl.duration(seconds=pl.col("offset_sec"))
-    ).select(["device_id", "x_coord", "y_coord", "recorded_at"])
+    )
     
-    # RDBMS向けにタプルのリストとして出力
-    records = df_final.rows()
+    columns = ["device_id", "rssi", "recorded_at"]
+    
+    # 3. 文字列(MACアドレス)の動的追加
+    if not exclude_strings:
+        # 1000台分の固定MACアドレスマスタを作成
+        mac_pool = [
+            f"{random.randint(0,255):02X}:{random.randint(0,255):02X}:{random.randint(0,255):02X}:"
+            f"{random.randint(0,255):02X}:{random.randint(0,255):02X}:{random.randint(0,255):02X}"
+            for _ in range(1000)
+        ]
+        devices_df = pl.DataFrame({
+            "device_id": np.arange(1, 1001),
+            "mac_address": mac_pool
+        })
+        # デバイスIDをキーにして高速結合
+        df = df.join(devices_df, on="device_id", how="left")
+        
+        # カラム順序の再定義（DBのスキーマ順序に合わせる）
+        columns = ["device_id", "mac_address", "rssi", "recorded_at"]
+    
+    # 必要なカラムだけを抽出し、タプルのリストに変換
+    records = df.select(columns).rows()
     
     end_gen = time.time()
     print(f"データ生成完了: {end_gen - start_gen:.4f} 秒\n")
     
-    return records
+    return records, columns
 
 # --- 1. MySQL ---
-def insert_mysql(data):
+def insert_mysql(data, columns):
     print("[MySQL] インサート準備中...")
     conn = mysql.connector.connect(host="mysql", user="root", password="rootpassword", database="mydatabase")
     cursor = conn.cursor()
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS tracking_data (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            device_id VARCHAR(50), x_coord FLOAT, y_coord FLOAT, recorded_at DATETIME
-        )
-    """)
-    cursor.execute("TRUNCATE TABLE tracking_data")
     
-    query = "INSERT INTO tracking_data (device_id, x_coord, y_coord, recorded_at) VALUES (%s, %s, %s, %s)"
+    # 動的スキーマ生成
+    type_map = {"device_id": "INT", "mac_address": "VARCHAR(17)", "rssi": "FLOAT", "recorded_at": "DATETIME"}
+    col_defs = ", ".join([f"{col} {type_map[col]}" for col in columns])
+    
+    cursor.execute(f"CREATE TABLE IF NOT EXISTS sensor_data (id INT AUTO_INCREMENT PRIMARY KEY, {col_defs})")
+    cursor.execute("TRUNCATE TABLE sensor_data")
+    
+    placeholders = ", ".join(["%s"] * len(columns))
+    query = f"INSERT INTO sensor_data ({', '.join(columns)}) VALUES ({placeholders})"
     
     print("[MySQL] 計測開始...")
     start_time = time.time()
@@ -71,23 +91,23 @@ def insert_mysql(data):
     conn.close()
 
 # --- 2. PostgreSQL ---
-def insert_postgres(data):
+def insert_postgres(data, columns):
     print("[PostgreSQL] インサート準備中...")
     conn = psycopg2.connect(host="postgres", user="postgres", password="rootpassword", dbname="mydatabase")
     cursor = conn.cursor()
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS tracking_data (
-            id SERIAL PRIMARY KEY,
-            device_id VARCHAR(50), x_coord REAL, y_coord REAL, recorded_at TIMESTAMP
-        )
-    """)
-    cursor.execute("TRUNCATE TABLE tracking_data")
     
-    query = "INSERT INTO tracking_data (device_id, x_coord, y_coord, recorded_at) VALUES (%s, %s, %s, %s)"
+    # 動的スキーマ生成
+    type_map = {"device_id": "INT", "mac_address": "VARCHAR(17)", "rssi": "REAL", "recorded_at": "TIMESTAMP"}
+    col_defs = ", ".join([f"{col} {type_map[col]}" for col in columns])
+    
+    cursor.execute(f"CREATE TABLE IF NOT EXISTS sensor_data (id SERIAL PRIMARY KEY, {col_defs})")
+    cursor.execute("TRUNCATE TABLE sensor_data")
+    
+    placeholders = ", ".join(["%s"] * len(columns))
+    query = f"INSERT INTO sensor_data ({', '.join(columns)}) VALUES ({placeholders})"
     
     print("[PostgreSQL] 計測開始...")
     start_time = time.time()
-    # psycopg2の標準executemanyは1件ずつの処理になり遅いため、execute_batchを使用
     psycopg2.extras.execute_batch(cursor, query, data)
     conn.commit()
     end_time = time.time()
@@ -97,18 +117,15 @@ def insert_postgres(data):
     conn.close()
 
 # --- 3. MongoDB ---
-def insert_mongodb(data):
+def insert_mongodb(data, columns):
     print("[MongoDB] インサート準備中...")
     client = MongoClient("mongodb://root:rootpassword@mongodb:27017/")
     db = client["mydatabase"]
-    collection = db["tracking_data"]
-    collection.delete_many({}) # 初期化
+    collection = db["sensor_data"]
+    collection.delete_many({})
     
-    # Mongo用に辞書型に変換（計測時間には含めない）
-    dict_data = [
-        {"device_id": d[0], "x_coord": float(d[1]), "y_coord": float(d[2]), "recorded_at": d[3]} 
-        for d in data
-    ]
+    # 動的に辞書型へ変換
+    dict_data = [dict(zip(columns, row)) for row in data]
     
     print("[MongoDB] 計測開始...")
     start_time = time.time()
@@ -119,91 +136,84 @@ def insert_mongodb(data):
     client.close()
 
 # --- 4. Redis ---
-def insert_redis(data):
+def insert_redis(data, columns):
     print("[Redis] インサート準備中...")
-    # decode_responses=Trueで文字列として扱う
     r = redis.Redis(host='redis', port=6379, password='rootpassword', decode_responses=True)
-    r.delete('tracking_data')
-    
-    # ネットワークオーバーヘッドを減らすためにパイプラインを使用
+    r.delete('sensor_data')
     pipe = r.pipeline()
     
     print("[Redis] 計測開始...")
     start_time = time.time()
-    # List型にJSON文字列としてPushしていくアプローチ
-    for i, d in enumerate(data):
-        payload = json.dumps({"d": d[0], "x": float(d[1]), "y": float(d[2]), "t": d[3].isoformat()})
-        pipe.rpush('tracking_data', payload)
+    for i, row in enumerate(data):
+        row_dict = dict(zip(columns, row))
+        # 日時オブジェクトを文字列化
+        row_dict['recorded_at'] = row_dict['recorded_at'].isoformat()
         
-        # 1万件ごとにネットワーク送信（メモリ枯渇防止）
+        pipe.rpush('sensor_data', json.dumps(row_dict))
         if (i + 1) % 10000 == 0:
             pipe.execute()
             
-    # 残りのデータを送信
     pipe.execute()
     end_time = time.time()
-    
     print(f"✅ [Redis] {len(data):,}件のInsert完了: {end_time - start_time:.4f} 秒\n")
     r.close()
 
-# --- 5. SurrealDB (非同期処理) ---
-async def insert_surrealdb(data):
+# --- 5. SurrealDB ---
+async def insert_surrealdb(data, columns):
     print("[SurrealDB] インサート準備中...")
     
-    # SurrealDB用に辞書型に変換し、日時は文字列(ISO8601)にしておく
-    dict_data = [
-        {"device_id": d[0], "x_coord": float(d[1]), "y_coord": float(d[2]), "recorded_at": d[3].isoformat()} 
-        for d in data
-    ]
+    dict_data = []
+    for row in data:
+        row_dict = dict(zip(columns, row))
+        row_dict['recorded_at'] = row_dict['recorded_at'].isoformat()
+        dict_data.append(row_dict)
 
     async with Surreal("ws://surrealdb:8000/rpc") as db:
         await db.signin({"user": "root", "pass": "rootpassword"})
         await db.use("benchmark", "benchmark")
-        await db.query("REMOVE TABLE tracking_data")
+        await db.query("REMOVE TABLE sensor_data")
         
         print("[SurrealDB] 計測開始...")
         start_time = time.time()
         
-        # SurrealDBは1リクエストのペイロード上限があるため、チャンクに分割してインサート
         chunk_size = 5000
         for i in range(0, len(dict_data), chunk_size):
             chunk = dict_data[i:i+chunk_size]
-            await db.query("INSERT INTO tracking_data $data", {"data": chunk})
+            await db.query("INSERT INTO sensor_data $data", {"data": chunk})
             
         end_time = time.time()
         print(f"✅ [SurrealDB] {len(data):,}件のInsert完了: {end_time - start_time:.4f} 秒\n")
 
 
 if __name__ == "__main__":
-    # コマンドライン引数の設定
-    parser = argparse.ArgumentParser(description="Database Benchmark Tool")
+    parser = argparse.ArgumentParser(description="Sensor Data DB Benchmark Tool")
     parser.add_argument("--db", type=str, required=True, 
-                        choices=["mysql", "postgres", "mongodb", "redis", "surrealdb", "all"],
-                        help="ベンチマークを実行するデータベースを指定します")
+                        choices=["mysql", "postgres", "mongodb", "redis", "surrealdb", "all"])
     parser.add_argument("--records", type=int, default=100000, 
-                        help="生成するダミーデータの件数 (デフォルト: 100,000)")
+                        help="生成するセンサデータの件数 (デフォルト: 100,000)")
+    # --- 文字列データを除外するフラグを追加 ---
+    parser.add_argument("--exclude-strings", action="store_true", 
+                        help="MACアドレスなどの文字列カラムをデータから除外して評価する")
     args = parser.parse_args()
 
-    print(f"=== ベンチマーク開始: 対象DB={args.db}, データ件数={args.records:,} ===")
+    print(f"=== ベンチマーク開始: 対象DB={args.db}, 件数={args.records:,}, 文字列除外={args.exclude_strings} ===")
     
-    # データ生成
-    dummy_data = generate_dummy_data_fast(args.records)
+    # データの生成（タプルのリストと、カラム名のリストを受け取る）
+    dummy_data, data_columns = generate_sensor_data(args.records, args.exclude_strings)
     
-    # 選択されたDBの関数を実行
     if args.db in ["mysql", "all"]:
-        insert_mysql(dummy_data)
+        insert_mysql(dummy_data, data_columns)
         
     if args.db in ["postgres", "all"]:
-        insert_postgres(dummy_data)
+        insert_postgres(dummy_data, data_columns)
         
     if args.db in ["mongodb", "all"]:
-        insert_mongodb(dummy_data)
+        insert_mongodb(dummy_data, data_columns)
         
     if args.db in ["redis", "all"]:
-        insert_redis(dummy_data)
+        insert_redis(dummy_data, data_columns)
         
     if args.db in ["surrealdb", "all"]:
-        # SurrealDBは非同期関数のため asyncio で実行
-        asyncio.run(insert_surrealdb(dummy_data))
+        asyncio.run(insert_surrealdb(dummy_data, data_columns))
         
     print("=== 全てのベンチマークが完了しました ===")
