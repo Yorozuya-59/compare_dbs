@@ -13,6 +13,13 @@ import psycopg2.extras
 from pymongo import MongoClient
 import redis
 from surrealdb import Surreal
+import clickhouse_connect
+from influxdb_client import InfluxDBClient, Point
+from influxdb_client.client.write_api import SYNCHRONOUS, WriteOptions
+from cassandra.cluster import Cluster
+from cassandra.concurrent import execute_concurrent_with_args
+
+DB_CHOICES = ["mysql", "postgres", "mongodb", "redis", "surrealdb", "clickhouse", "timescaledb", "influxdb", "scylladb", "all"]
 
 def generate_sensor_data(num_records, exclude_strings=False):
     print(f"{num_records:,}件のセンサデータを生成中... (文字列除外: {exclude_strings})")
@@ -192,11 +199,105 @@ async def insert_surrealdb(data, columns):
         end_time = time.time()
         print(f"✅ [SurrealDB] {len(data):,}件のInsert完了: {end_time - start_time:.4f} 秒\n")
 
+def insert_clickhouse(data, columns):
+    print("[ClickHouse] インサート準備中...")
+    client = clickhouse_connect.get_client(host='clickhouse', port=8123, username='default', password='rootpassword')    
+    type_map = {"device_id": "Int32", "mac_address": "String", "rssi": "Float32", "recorded_at": "DateTime64(3)"}
+    col_defs = ", ".join([f"{col} {type_map[col]}" for col in columns])
+    
+    client.command("DROP TABLE IF EXISTS sensor_data")
+    # ClickHouseはMergeTreeエンジンとORDER BY(主キー)が必須
+    client.command(f"CREATE TABLE sensor_data ({col_defs}) ENGINE = MergeTree() ORDER BY (device_id, recorded_at)")
+    
+    print("[ClickHouse] 計測開始...")
+    start_time = time.time()
+    # ネイティブのバルクインサート
+    client.insert('sensor_data', data, column_names=columns)
+    print(f"✅ [ClickHouse] Insert完了: {time.time() - start_time:.4f} 秒\n")
+
+def insert_timescaledb(data, columns):
+    print("[TimescaleDB] インサート準備中...")
+    # ホスト名が timescaledb になるだけで、ドライバは PostgreSQL と同じ
+    conn = psycopg2.connect(host="timescaledb", user="postgres", password="rootpassword", dbname="mydatabase")
+    cursor = conn.cursor()
+    
+    type_map = {"device_id": "INT", "mac_address": "VARCHAR(17)", "rssi": "REAL", "recorded_at": "TIMESTAMP"}
+    col_defs = ", ".join([f"{col} {type_map[col]}" for col in columns])
+    
+    cursor.execute("CREATE EXTENSION IF NOT EXISTS timescaledb;")
+    cursor.execute("DROP TABLE IF EXISTS sensor_data CASCADE;")
+    cursor.execute(f"CREATE TABLE sensor_data ({col_defs});")
+    # ハイパーテーブル（時系列データ用パーティショニング）の作成
+    cursor.execute("SELECT create_hypertable('sensor_data', 'recorded_at');")
+    
+    placeholders = ", ".join(["%s"] * len(columns))
+    query = f"INSERT INTO sensor_data ({', '.join(columns)}) VALUES ({placeholders})"
+    
+    print("[TimescaleDB] 計測開始...")
+    start_time = time.time()
+    psycopg2.extras.execute_batch(cursor, query, data, page_size=10000)
+    conn.commit()
+    print(f"✅ [TimescaleDB] Insert完了: {time.time() - start_time:.4f} 秒\n")
+    cursor.close(); conn.close()
+
+def insert_influxdb(data, columns):
+    print("[InfluxDB] インサート準備中...")
+    client = InfluxDBClient(url="http://influxdb:8086", token="benchmark_token_12345", org="benchmark_org")
+    
+    # InfluxDBのLine Protocol向けに辞書を作成（device_idとmac_addressはTag、rssiはFieldとする）
+    write_data = []
+    for row in data:
+        row_dict = dict(zip(columns, row))
+        point = {"measurement": "sensor_data", "tags": {"device_id": str(row_dict["device_id"])},
+                 "fields": {"rssi": float(row_dict["rssi"])}, "time": row_dict["recorded_at"]}
+        if "mac_address" in row_dict:
+            point["tags"]["mac_address"] = row_dict["mac_address"]
+        write_data.append(point)
+        
+    print("[InfluxDB] 計測開始...")
+    start_time = time.time()
+    # InfluxDBクライアントのバッチ処理機能を使用
+    with client.write_api(write_options=WriteOptions(batch_size=50000, flush_interval=10000)) as write_api:
+        write_api.write(bucket="benchmark_bucket", record=write_data)
+    
+    print(f"✅ [InfluxDB] Insert完了: {time.time() - start_time:.4f} 秒\n")
+    client.close()
+
+def insert_scylladb(data, columns):
+    print("[ScyllaDB] インサート準備中... (起動に時間がかかる場合があります)")
+    cluster = Cluster(['scylladb'])
+    session = cluster.connect()
+    
+    session.execute("CREATE KEYSPACE IF NOT EXISTS benchmark WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1}")
+    session.set_keyspace('benchmark')
+    
+    type_map = {"device_id": "int", "mac_address": "text", "rssi": "float", "recorded_at": "timestamp"}
+    col_defs = ", ".join([f"{col} {type_map[col]}" for col in columns])
+    
+    session.execute("DROP TABLE IF EXISTS sensor_data")
+    # Cassandra系はPRIMARY KEYの設計が命。device_idをパーティションキー、recorded_atをクラスタリングキーにする
+    session.execute(f"CREATE TABLE sensor_data ({col_defs}, PRIMARY KEY (device_id, recorded_at))")
+    
+    placeholders = ", ".join(["?"] * len(columns))
+    query = f"INSERT INTO sensor_data ({', '.join(columns)}) VALUES ({placeholders})"
+    prepared = session.prepare(query)
+    
+    print("[ScyllaDB] 計測開始...")
+    start_time = time.time()
+    
+    # 並行書き込み処理
+    chunk_size = 1000
+    for i in range(0, len(data), chunk_size):
+        chunk = data[i:i + chunk_size]
+        execute_concurrent_with_args(session, prepared, chunk, concurrency=100)
+        
+    print(f"✅ [ScyllaDB] Insert完了: {time.time() - start_time:.4f} 秒\n")
+    cluster.shutdown()
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Sensor Data DB Benchmark Tool")
-    parser.add_argument("--db", type=str, required=True, 
-                        choices=["mysql", "postgres", "mongodb", "redis", "surrealdb", "all"])
+    parser.add_argument("--db", type=str, required=True, choices=DB_CHOICES, 
+                        help="ベンチマーク対象のデータベース (例: mysql, postgres, mongodb, redis, surrealdb, clickhouse, timescaledb, influxdb, scylladb, all)")
     parser.add_argument("--records", type=int, default=100000, 
                         help="生成するセンサデータの件数 (デフォルト: 100,000)")
     # --- 文字列データを除外するフラグを追加 ---
@@ -223,5 +324,17 @@ if __name__ == "__main__":
         
     if args.db in ["surrealdb", "all"]:
         asyncio.run(insert_surrealdb(dummy_data, data_columns))
+    
+    if args.db in ["clickhouse", "all"]:
+        insert_clickhouse(dummy_data, data_columns)
+        
+    if args.db in ["timescaledb", "all"]:
+        insert_timescaledb(dummy_data, data_columns)
+        
+    if args.db in ["influxdb", "all"]:
+        insert_influxdb(dummy_data, data_columns)
+        
+    if args.db in ["scylladb", "all"]:
+        insert_scylladb(dummy_data, data_columns)
         
     print("=== 全てのベンチマークが完了しました ===")

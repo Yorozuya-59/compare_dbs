@@ -5,3 +5,6 @@ redis==5.0.3
 surrealdb==0.3.2
 numpy==1.26.4
 polars==0.20.10
+clickhouse-connect==0.7.3
+influxdb-client==1.42.0
+cassandra-driver==3.29.0

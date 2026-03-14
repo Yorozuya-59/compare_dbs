@@ -68,6 +68,63 @@ services:
     volumes:
       - surreal_data:/var/lib/surrealdb
   
+  # 6. ClickHouse (カラム指向・超高速OLAP DB)
+  clickhouse:
+    image: clickhouse/clickhouse-server:latest
+    container_name: clickhouse
+    restart: always
+    environment:
+      CLICKHOUSE_USER: default
+      CLICKHOUSE_PASSWORD: rootpassword
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+    volumes:
+      - clickhouse_data:/var/lib/clickhouse
+
+  # 7. TimescaleDB (PostgreSQLベースの時系列DB)
+  timescaledb:
+    image: timescale/timescaledb:latest-pg15
+    container_name: timescaledb
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: rootpassword
+      POSTGRES_DB: mydatabase
+    ports:
+      - "5433:5432" # ホスト側は5433にずらす
+    volumes:
+      - timescale_data:/var/lib/postgresql/data
+
+  # 8. InfluxDB (時系列DBの代表格)
+  influxdb:
+    image: influxdb:latest
+    container_name: influxdb
+    restart: always
+    environment:
+      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_USERNAME: admin
+      DOCKER_INFLUXDB_INIT_PASSWORD: rootpassword
+      DOCKER_INFLUXDB_INIT_ORG: benchmark_org
+      DOCKER_INFLUXDB_INIT_BUCKET: benchmark_bucket
+      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: benchmark_token_12345
+    ports:
+      - "8086:8086"
+    volumes:
+      - influxdb_data:/var/lib/influxdb2
+
+  # 9. ScyllaDB (Cassandra互換・C++実装の超高速ワイドカラムストア)
+  scylladb:
+    image: scylladb/scylla:latest
+    container_name: scylladb
+    restart: always
+    # ローカル検証用にリソースを制限（これをしないとMacがハングする可能性があります）
+    command: --smp 1 --memory 1G
+    ports:
+      - "9042:9042"
+    volumes:
+      - scylla_data:/var/lib/scylla
+  
   # ベンチマーク実行用コンテナ
   benchmarker:
     build: ./environment     # environmentディレクトリをビルドの基準にする
@@ -77,9 +134,16 @@ services:
     command: ["tail", "-f", "/dev/null"]  # 起動させ続けるための設定
     volumes:
       - ./src:/app/src       # ホストのsrcディレクトリをコンテナ内の/app/srcにマウント
-    depends_on:
-      - mysql
-      - postgres
+    # depends_on:
+    #   - mysql
+    #   - postgres
+    #   - mongodb
+    #   - redis
+    #   - surrealdb
+    #   - clickhouse
+    #   - timescaledb
+    #   - influxdb
+    #   - scylladb
     networks:
       - default
   
@@ -89,6 +153,10 @@ volumes:
   mongodb_data:
   redis_data:
   surreal_data:
+  clickhouse_data:
+  timescale_data:
+  influxdb_data:
+  scylla_data:
 
 networks:
   default:
