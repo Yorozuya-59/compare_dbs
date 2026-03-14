@@ -134,6 +134,7 @@ services:
     command: ["tail", "-f", "/dev/null"]  # 起動させ続けるための設定
     volumes:
       - ./src:/app/src       # ホストのsrcディレクトリをコンテナ内の/app/srcにマウント
+      - ./results:/app/results   # ★この1行を追加してCSVを永続化する
     # depends_on:
     #   - mysql
     #   - postgres
