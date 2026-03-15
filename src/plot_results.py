@@ -1,16 +1,13 @@
 import os
-import glob
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-def load_data(data_dir="/app/results"):
-    all_files = glob.glob(os.path.join(data_dir, "*.csv"))
-    if not all_files:
-        print(f"[{data_dir}] にCSVファイルが見つかりません。")
+def load_data(file_path):
+    if not os.path.exists(file_path):
+        print(f"[{file_path}] が見つかりません。パスを確認してください。")
         return None
-    df_list = [pd.read_csv(f) for f in all_files]
-    df = pd.concat(df_list, ignore_index=True)
+    df = pd.read_csv(file_path)
     return df
 
 def plot_insert_scaling(df, out_dir):
@@ -65,13 +62,15 @@ def plot_query_performance_10m(df, out_dir):
     plt.close()
 
 if __name__ == "__main__":
+    # 対象のCSVファイルを明示的に指定
+    TARGET_CSV = "/app/results/agg_results.csv"
     OUT_DIR = "/app/results"
     
-    print("=== グラフ自動生成スクリプト ===")
-    df = load_data(OUT_DIR)
+    print(f"=== グラフ自動生成スクリプト ({TARGET_CSV} を読み込みます) ===")
+    df = load_data(TARGET_CSV)
     
     if df is not None:
-        # データにNaN（Redisなどの未サポート処理）がある場合は0や除外してプロット
+        # データにNaN（Redis等の未サポート処理や、タイムアウトした場合の欠損）がある場合は強制的に数値化
         df['Elapsed_Time_sec'] = pd.to_numeric(df['Elapsed_Time_sec'], errors='coerce')
         
         plot_insert_scaling(df, OUT_DIR)
