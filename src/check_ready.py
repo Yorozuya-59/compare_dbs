@@ -11,6 +11,7 @@ from surrealdb import Surreal
 import clickhouse_connect
 from influxdb_client import InfluxDBClient
 from cassandra.cluster import Cluster
+import duckdb
 
 def check_mysql():
     conn = mysql.connector.connect(host="mysql", user="root", password="rootpassword", database="mydatabase")
@@ -53,6 +54,19 @@ def check_scylladb():
     session = cluster.connect()
     cluster.shutdown()
 
+def check_duckdb():
+    # DuckDBはローカルファイルなので常にReady
+    pass
+
+def check_questdb():
+    conn = psycopg2.connect(host="questdb", port=8812, user="admin", password="quest", dbname="qdb")
+    conn.close()
+
+def check_starrocks():
+    # StarRocksはMySQLプロトコルで接続可能
+    conn = mysql.connector.connect(host="starrocks", port=9030, user="root", password="")
+    conn.close()
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--db", type=str, required=True)
@@ -69,6 +83,9 @@ if __name__ == "__main__":
         elif args.db == "timescaledb": check_timescaledb()
         elif args.db == "influxdb": check_influxdb()
         elif args.db == "scylladb": check_scylladb()
+        elif args.db == "duckdb": check_duckdb()
+        elif args.db == "questdb": check_questdb()
+        elif args.db == "starrocks": check_starrocks()
         else:
             sys.exit(1)
         sys.exit(0)

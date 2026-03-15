@@ -12,13 +12,15 @@ from surrealdb import Surreal
 import clickhouse_connect
 from influxdb_client import InfluxDBClient
 from cassandra.cluster import Cluster
+import duckdb
 
 TARGET_DEVICE_ID = 500
 BASE_TIME = datetime.now()
 RANGE_START = BASE_TIME - timedelta(hours=12)
 RANGE_END = BASE_TIME - timedelta(hours=11)
 
-DB_CHOICES = ["mysql", "postgres", "mongodb", "redis", "surrealdb", "clickhouse", "timescaledb", "influxdb", "scylladb", "all"]
+# DB_CHOICES = ["mysql", "postgres", "mongodb", "redis", "surrealdb", "clickhouse", "timescaledb", "influxdb", "scylladb", "all"]
+DB_CHOICES = ["mysql", "postgres", "mongodb", "redis", "surrealdb", "clickhouse", "timescaledb", "influxdb", "scylladb", "duckdb", "questdb", "starrocks", "all"]
 
 def print_result(name, elapsed):
     if elapsed is not None:
@@ -160,6 +162,43 @@ def query_scylladb():
     print("")
     cluster.shutdown(); return q1, q2, q3
 
+def query_duckdb():
+    print("[DuckDB]")
+    conn = duckdb.connect('/app/results/benchmark.duckdb', read_only=True)
+    
+    t0 = time.time(); conn.execute(f"SELECT * FROM sensor_data WHERE device_id = {TARGET_DEVICE_ID} ORDER BY recorded_at DESC LIMIT 10").fetchall(); q1 = time.time() - t0
+    t0 = time.time(); conn.execute("SELECT device_id, COUNT(*), AVG(rssi) FROM sensor_data GROUP BY device_id").fetchall(); q2 = time.time() - t0
+    t0 = time.time(); conn.execute(f"SELECT COUNT(*) FROM sensor_data WHERE recorded_at >= '{RANGE_START}' AND recorded_at <= '{RANGE_END}'").fetchall(); q3 = time.time() - t0
+
+    print_result("特定デバイス検索", q1); print_result("全デバイス別集計", q2); print_result("時間範囲検索(1h)", q3); print("")
+    conn.close(); return q1, q2, q3
+
+def query_questdb():
+    print("[QuestDB]")
+    # 検索にはPostgresのプロトコルを使用
+    conn = psycopg2.connect(host="questdb", port=8812, user="admin", password="quest", dbname="qdb")
+    cursor = conn.cursor()
+    
+    # QuestDBは device_id を Symbol(文字列) として保存しているためキャストが必要
+    t0 = time.time(); cursor.execute("SELECT * FROM sensor_data WHERE device_id = %s ORDER BY recorded_at DESC LIMIT 10", (str(TARGET_DEVICE_ID),)); cursor.fetchall(); q1 = time.time() - t0
+    t0 = time.time(); cursor.execute("SELECT device_id, COUNT(*), AVG(rssi) FROM sensor_data GROUP BY device_id"); cursor.fetchall(); q2 = time.time() - t0
+    t0 = time.time(); cursor.execute("SELECT COUNT(*) FROM sensor_data WHERE recorded_at >= %s AND recorded_at <= %s", (RANGE_START, RANGE_END)); cursor.fetchall(); q3 = time.time() - t0
+
+    print_result("特定デバイス検索", q1); print_result("全デバイス別集計", q2); print_result("時間範囲検索(1h)", q3); print("")
+    conn.close(); return q1, q2, q3
+
+def query_starrocks():
+    print("[StarRocks]")
+    conn = mysql.connector.connect(host="starrocks", port=9030, user="root", password="", database="benchmark")
+    cursor = conn.cursor()
+    
+    t0 = time.time(); cursor.execute("SELECT * FROM sensor_data WHERE device_id = %s ORDER BY recorded_at DESC LIMIT 10", (TARGET_DEVICE_ID,)); cursor.fetchall(); q1 = time.time() - t0
+    t0 = time.time(); cursor.execute("SELECT device_id, COUNT(*), AVG(rssi) FROM sensor_data GROUP BY device_id"); cursor.fetchall(); q2 = time.time() - t0
+    t0 = time.time(); cursor.execute("SELECT COUNT(*) FROM sensor_data WHERE recorded_at >= %s AND recorded_at <= %s", (RANGE_START, RANGE_END)); cursor.fetchall(); q3 = time.time() - t0
+
+    print_result("特定デバイス検索", q1); print_result("全デバイス別集計", q2); print_result("時間範囲検索(1h)", q3); print("")
+    conn.close(); return q1, q2, q3
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--db", type=str, required=True, choices=DB_CHOICES)
@@ -185,3 +224,6 @@ if __name__ == "__main__":
     if args.db in ["timescaledb", "all"]: process_and_save(query_timescaledb(), "timescaledb")
     if args.db in ["influxdb", "all"]: process_and_save(query_influxdb(), "influxdb")
     if args.db in ["scylladb", "all"]: process_and_save(query_scylladb(), "scylladb")
+    if args.db in ["duckdb", "all"]: process_and_save(query_duckdb(), "duckdb")
+    if args.db in ["questdb", "all"]: process_and_save(query_questdb(), "questdb")
+    if args.db in ["starrocks", "all"]: process_and_save(query_starrocks(), "starrocks")

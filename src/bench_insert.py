@@ -20,8 +20,11 @@ from influxdb_client import InfluxDBClient, Point
 from influxdb_client.client.write_api import SYNCHRONOUS, WriteOptions
 from cassandra.cluster import Cluster
 from cassandra.concurrent import execute_concurrent_with_args
+import duckdb
+from questdb.ingress import Sender
 
-DB_CHOICES = ["mysql", "postgres", "mongodb", "redis", "surrealdb", "clickhouse", "timescaledb", "influxdb", "scylladb", "all"]
+# DB_CHOICES = ["mysql", "postgres", "mongodb", "redis", "surrealdb", "clickhouse", "timescaledb", "influxdb", "scylladb", "all"]
+DB_CHOICES = ["mysql", "postgres", "mongodb", "redis", "surrealdb", "clickhouse", "timescaledb", "influxdb", "scylladb", "duckdb", "questdb", "starrocks", "all"]
 
 # --- CSV出力用の共通関数 ---
 def append_to_csv(csv_path, db_name, operation, records, exclude_strings, elapsed_time):
@@ -232,6 +235,84 @@ def insert_scylladb(data, columns):
     cluster.shutdown()
     return elapsed
 
+def insert_duckdb(data, columns):
+    print("[DuckDB] インサート準備中...")
+    conn = duckdb.connect('/app/results/benchmark.duckdb')
+    type_map = {"device_id": "INTEGER", "mac_address": "VARCHAR", "rssi": "FLOAT", "recorded_at": "TIMESTAMP"}
+    col_defs = ", ".join([f"{col} {type_map[col]}" for col in columns])
+    
+    conn.execute("DROP TABLE IF EXISTS sensor_data")
+    conn.execute(f"CREATE TABLE sensor_data ({col_defs})")
+    
+    print("[DuckDB] 計測開始...")
+    start_time = time.time()
+    
+    # --- 修正箇所：appenderの代わりに、より安全な executemany を使用 ---
+    placeholders = ", ".join(["?"] * len(columns))
+    query = f"INSERT INTO sensor_data VALUES ({placeholders})"
+    conn.executemany(query, data)
+    # -------------------------------------------------------------
+    
+    elapsed = time.time() - start_time
+    print(f"✅ [DuckDB] Insert完了: {elapsed:.4f} 秒\n")
+    conn.close()
+    return elapsed
+
+def insert_questdb(data, columns):
+    print("[QuestDB] インサート準備中...")
+    print("[QuestDB] 計測開始...")
+    start_time = time.time()
+    
+    # --- 修正箇所：QuestDB 4.x 向けの from_conf 記法に変更 ---
+    with Sender.from_conf('tcp::addr=questdb:9009;') as sender:
+        for row in data:
+            row_dict = dict(zip(columns, row))
+            sender.row(
+                'sensor_data',
+                symbols={'device_id': str(row_dict['device_id']), 
+                         **({'mac_address': row_dict['mac_address']} if 'mac_address' in row_dict else {})},
+                columns={'rssi': float(row_dict['rssi'])},
+                at=row_dict['recorded_at']
+            )
+        sender.flush()
+    # ---------------------------------------------------------
+        
+    elapsed = time.time() - start_time
+    print(f"✅ [QuestDB] Insert完了: {elapsed:.4f} 秒\n")
+    return elapsed
+
+def insert_starrocks(data, columns):
+    print("[StarRocks] インサート準備中...")
+    conn = mysql.connector.connect(host="starrocks", port=9030, user="root", password="")
+    cursor = conn.cursor()
+    cursor.execute("CREATE DATABASE IF NOT EXISTS benchmark")
+    cursor.execute("USE benchmark")
+    
+    type_map = {"device_id": "INT", "mac_address": "VARCHAR(17)", "rssi": "FLOAT", "recorded_at": "DATETIME"}
+    col_defs = ", ".join([f"{col} {type_map[col]}" for col in columns])
+    
+    cursor.execute("DROP TABLE IF EXISTS sensor_data")
+    # StarRocksは分散処理のための分散キー(DISTRIBUTED BY)が必須
+    cursor.execute(f"""
+        CREATE TABLE sensor_data ({col_defs}) 
+        DUPLICATE KEY(device_id, recorded_at) 
+        DISTRIBUTED BY HASH(device_id) BUCKETS 4 
+        PROPERTIES("replication_num" = "1")
+    """)
+    
+    placeholders = ", ".join(["%s"] * len(columns))
+    query = f"INSERT INTO sensor_data ({', '.join(columns)}) VALUES ({placeholders})"
+    
+    print("[StarRocks] 計測開始...")
+    start_time = time.time()
+    for i in range(0, len(data), 50000):
+        cursor.executemany(query, data[i:i + 50000])
+    conn.commit()
+    elapsed = time.time() - start_time
+    print(f"✅ [StarRocks] Insert完了: {elapsed:.4f} 秒\n")
+    cursor.close(); conn.close()
+    return elapsed
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--db", type=str, required=True, choices=DB_CHOICES)
@@ -263,3 +344,9 @@ if __name__ == "__main__":
         append_to_csv(args.csv, "influxdb", "insert", args.records, args.exclude_strings, insert_influxdb(dummy_data, data_columns))
     if args.db in ["scylladb", "all"]: 
         append_to_csv(args.csv, "scylladb", "insert", args.records, args.exclude_strings, insert_scylladb(dummy_data, data_columns))
+    if args.db in ["duckdb", "all"]: 
+        append_to_csv(args.csv, "duckdb", "insert", args.records, args.exclude_strings, insert_duckdb(dummy_data, data_columns))
+    if args.db in ["questdb", "all"]: 
+        append_to_csv(args.csv, "questdb", "insert", args.records, args.exclude_strings, insert_questdb(dummy_data, data_columns))
+    if args.db in ["starrocks", "all"]: 
+        append_to_csv(args.csv, "starrocks", "insert", args.records, args.exclude_strings, insert_starrocks(dummy_data, data_columns))

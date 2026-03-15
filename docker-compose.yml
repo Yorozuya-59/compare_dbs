@@ -124,6 +124,28 @@ services:
       - "9042:9042"
     volumes:
       - scylla_data:/var/lib/scylla
+    
+  # 10. QuestDB (超高速な時系列データベース)
+  questdb:
+    image: questdb/questdb:latest
+    container_name: questdb
+    restart: always
+    ports:
+      - "9000:9000"
+      - "8812:8812" # Postgresワイヤープロトコル用ポート
+    volumes:
+      - questdb_data:/root/.questdb
+
+  # 11. StarRocks (ClickHouseの対抗馬 / モダンDWH)
+  starrocks:
+    image: starrocks/allinone:latest
+    container_name: starrocks
+    restart: always
+    ports:
+      - "9030:9030" # MySQLワイヤープロトコル用ポート
+      - "8030:8030"
+    volumes:
+      - starrocks_data:/var/lib/starrocks
   
   # ベンチマーク実行用コンテナ
   benchmarker:
@@ -158,6 +180,8 @@ volumes:
   timescale_data:
   influxdb_data:
   scylla_data:
+  questdb_data:
+  starrocks_data:
 
 networks:
   default:

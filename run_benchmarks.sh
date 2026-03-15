@@ -4,8 +4,8 @@
 # DBベンチマーク自動実行スクリプト（CSV出力 + スマート待機・省メモリ版）
 # =========================================================
 
-DBS=("surrealdb")
-# DBS=("mysql" "postgres" "mongodb" "redis" "surrealdb" "clickhouse" "timescaledb" "influxdb" "scylladb")
+# DBS=("mysql" "postgres" "mongodb" "redis" "surrealdb" "clickhouse" "timescaledb" "influxdb" "scylladb" "duckdb" "questdb" "starrocks")
+DBS=("duckdb" "questdb" "starrocks")
 RECORDS=(1000 10000 100000 1000000 10000000)
 
 mkdir -p results
@@ -23,7 +23,13 @@ for db in "${DBS[@]}"; do
     echo "===================================================" | tee -a "$LOG_FILE"
     echo "🚀 [Start] データベース: $db のテストを開始します" | tee -a "$LOG_FILE"
     
-    docker compose up -d $db benchmarker
+    # --- 修正箇所：DuckDBは専用コンテナを持たないための特別扱い ---
+    if [ "$db" == "duckdb" ]; then
+        docker compose up -d benchmarker
+    else
+        docker compose up -d $db benchmarker
+    fi
+    # -------------------------------------------------------------
     
     echo -n "⏳ $db の起動完了を待機しています..." | tee -a "$LOG_FILE"
     MAX_RETRIES=60
