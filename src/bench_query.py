@@ -179,10 +179,11 @@ def query_questdb():
     conn = psycopg2.connect(host="questdb", port=8812, user="admin", password="quest", dbname="qdb")
     cursor = conn.cursor()
     
-    # QuestDBは device_id を Symbol(文字列) として保存しているためキャストが必要
-    t0 = time.time(); cursor.execute("SELECT * FROM sensor_data WHERE device_id = %s ORDER BY recorded_at DESC LIMIT 10", (str(TARGET_DEVICE_ID),)); cursor.fetchall(); q1 = time.time() - t0
+    # --- 修正箇所： recorded_at を timestamp に変更 ---
+    t0 = time.time(); cursor.execute("SELECT * FROM sensor_data WHERE device_id = %s ORDER BY timestamp DESC LIMIT 10", (str(TARGET_DEVICE_ID),)); cursor.fetchall(); q1 = time.time() - t0
     t0 = time.time(); cursor.execute("SELECT device_id, COUNT(*), AVG(rssi) FROM sensor_data GROUP BY device_id"); cursor.fetchall(); q2 = time.time() - t0
-    t0 = time.time(); cursor.execute("SELECT COUNT(*) FROM sensor_data WHERE recorded_at >= %s AND recorded_at <= %s", (RANGE_START, RANGE_END)); cursor.fetchall(); q3 = time.time() - t0
+    t0 = time.time(); cursor.execute("SELECT COUNT(*) FROM sensor_data WHERE timestamp >= %s AND timestamp <= %s", (RANGE_START, RANGE_END)); cursor.fetchall(); q3 = time.time() - t0
+    # ----------------------------------------------
 
     print_result("特定デバイス検索", q1); print_result("全デバイス別集計", q2); print_result("時間範囲検索(1h)", q3); print("")
     conn.close(); return q1, q2, q3

@@ -63,9 +63,23 @@ def check_questdb():
     conn.close()
 
 def check_starrocks():
-    # StarRocksはMySQLプロトコルで接続可能
+    # StarRocksはFE(9030)が起動しても、BE(バックエンド)の準備ができるまで書き込めない
     conn = mysql.connector.connect(host="starrocks", port=9030, user="root", password="")
+    cursor = conn.cursor()
+    cursor.execute("SHOW BACKENDS")
+    backends = cursor.fetchall()
+    
+    # バックエンドのリストの中に、Alive状態(True/true)のものがあるか確認
+    is_alive = False
+    for row in backends:
+        # rowの中に 'true' または True が含まれていれば起動完了
+        if 'true' in str(row).lower() or True in row or 1 in row:
+            is_alive = True
+            break
+            
     conn.close()
+    if not is_alive:
+        raise Exception("StarRocks FE is up, but BE is not alive yet.")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

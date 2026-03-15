@@ -292,21 +292,27 @@ def insert_starrocks(data, columns):
     col_defs = ", ".join([f"{col} {type_map[col]}" for col in columns])
     
     cursor.execute("DROP TABLE IF EXISTS sensor_data")
-    # StarRocksは分散処理のための分散キー(DISTRIBUTED BY)が必須
+    
+    # --- 修正箇所：DUPLICATE KEY を device_id のみに変更 ---
     cursor.execute(f"""
         CREATE TABLE sensor_data ({col_defs}) 
-        DUPLICATE KEY(device_id, recorded_at) 
+        DUPLICATE KEY(device_id) 
         DISTRIBUTED BY HASH(device_id) BUCKETS 4 
         PROPERTIES("replication_num" = "1")
     """)
+    # --------------------------------------------------------
     
     placeholders = ", ".join(["%s"] * len(columns))
     query = f"INSERT INTO sensor_data ({', '.join(columns)}) VALUES ({placeholders})"
     
     print("[StarRocks] 計測開始...")
     start_time = time.time()
-    for i in range(0, len(data), 50000):
-        cursor.executemany(query, data[i:i + 50000])
+    
+    # --- 修正箇所：チャンクサイズをStarRocksの上限(10000)に合わせる ---
+    chunk_size = 10000
+    for i in range(0, len(data), chunk_size):
+        cursor.executemany(query, data[i:i + chunk_size])
+    
     conn.commit()
     elapsed = time.time() - start_time
     print(f"✅ [StarRocks] Insert完了: {elapsed:.4f} 秒\n")

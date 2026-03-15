@@ -5,7 +5,9 @@
 # =========================================================
 
 # DBS=("mysql" "postgres" "mongodb" "redis" "surrealdb" "clickhouse" "timescaledb" "influxdb" "scylladb" "duckdb" "questdb" "starrocks")
-DBS=("duckdb" "questdb" "starrocks")
+# DBS=("duckdb" "questdb" "starrocks")
+# DBS=("questdb" "starrocks")
+DBS=("starrocks")
 RECORDS=(1000 10000 100000 1000000 10000000)
 
 mkdir -p results

@@ -138,7 +138,7 @@ services:
 
   # 11. StarRocks (ClickHouseの対抗馬 / モダンDWH)
   starrocks:
-    image: starrocks/allinone:latest
+    image: starrocks/allin1-ubuntu:latest
     container_name: starrocks
     restart: always
     ports:
