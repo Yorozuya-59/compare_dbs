@@ -29,7 +29,20 @@ def plot_insert_scaling(df, out_dir, exclude_strings, suffix):
     if df_plot.empty: return
     
     plt.figure(figsize=(12, 7))
-    sns.lineplot(data=df_plot, x='Records', y='Elapsed_Time_sec', hue='Database', marker='o', linewidth=2)
+    
+    # --- 修正箇所: style='Database', markers=True を追加 ---
+    sns.lineplot(
+        data=df_plot, 
+        x='Records', 
+        y='Elapsed_Time_sec', 
+        hue='Database', 
+        style='Database',   # DBごとに線のスタイル/マーカーを変える
+        markers=True,       # マーカー（点）を表示する
+        dashes=False,       # 線自体はすべて実線にする（点線が混ざると見にくいため）
+        linewidth=2,
+        markersize=9        # マーカーを少し大きめにして見やすくする
+    )
+    # ----------------------------------------------------
     
     plt.xscale('log')
     plt.yscale('log')
@@ -53,7 +66,20 @@ def plot_query_scaling(df, out_dir, query_type):
     if df_plot.empty: return
     
     plt.figure(figsize=(12, 7))
-    sns.lineplot(data=df_plot, x='Records', y='Elapsed_Time_sec', hue='Database', marker='o', linewidth=2)
+    
+    # --- 修正箇所: style='Database', markers=True を追加 ---
+    sns.lineplot(
+        data=df_plot, 
+        x='Records', 
+        y='Elapsed_Time_sec', 
+        hue='Database', 
+        style='Database', 
+        markers=True, 
+        dashes=False, 
+        linewidth=2,
+        markersize=9
+    )
+    # ----------------------------------------------------
     
     plt.xscale('log')
     plt.yscale('log')
