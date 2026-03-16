@@ -100,7 +100,17 @@ async def query_surrealdb():
 # --- 6. ClickHouse ---
 def query_clickhouse():
     print("[ClickHouse]")
-    client = clickhouse_connect.get_client(host='clickhouse', port=8123, username='default', password='rootpassword')
+    # Merge処理（OPTIMIZE）は時間がかかる場合があるため、タイムアウトをさらに長く(600秒)設定します
+    client = clickhouse_connect.get_client(host='clickhouse', port=8123, username='default', password='rootpassword', send_receive_timeout=600)
+    
+    # --- 修正箇所：強制Merge（OPTIMIZE FINAL）を実行して待機する ---
+    print("  (内部の Merge 処理を強制実行し、完了を待機中...)")
+    try:
+        # このコマンドは、すべてのデータパーツが1つにマージされるまでブロック（待機）します
+        client.command("OPTIMIZE TABLE sensor_data FINAL")
+    except Exception as e:
+        print(f"  [Warning] Optimize処理中にエラーが発生しましたが、続行します: {e}")
+    # -------------------------------------------------------------
     
     t0 = time.time(); client.query(f"SELECT * FROM sensor_data WHERE device_id = {TARGET_DEVICE_ID} ORDER BY recorded_at DESC LIMIT 10"); q1 = time.time() - t0
     t0 = time.time(); client.query("SELECT device_id, count(*), avg(rssi) FROM sensor_data GROUP BY device_id"); q2 = time.time() - t0
@@ -173,17 +183,27 @@ def query_duckdb():
     print_result("特定デバイス検索", q1); print_result("全デバイス別集計", q2); print_result("時間範囲検索(1h)", q3); print("")
     conn.close(); return q1, q2, q3
 
+# --- 10. QuestDB (修正) ---
 def query_questdb():
     print("[QuestDB]")
-    # 検索にはPostgresのプロトコルを使用
     conn = psycopg2.connect(host="questdb", port=8812, user="admin", password="quest", dbname="qdb")
     cursor = conn.cursor()
     
-    # --- 修正箇所： recorded_at を timestamp に変更 ---
+    # ILP経由の非同期書き込みがディスクにフラッシュされるまで待機するループ
+    print("  (非同期データのフラッシュを待機中...)")
+    for _ in range(15):
+        try:
+            cursor.execute("SELECT COUNT(*) FROM sensor_data")
+            count = cursor.fetchone()[0]
+            if count > 0:
+                break
+        except Exception:
+            conn.rollback() # エラー時はトランザクションをリセット
+        time.sleep(2)
+        
     t0 = time.time(); cursor.execute("SELECT * FROM sensor_data WHERE device_id = %s ORDER BY timestamp DESC LIMIT 10", (str(TARGET_DEVICE_ID),)); cursor.fetchall(); q1 = time.time() - t0
     t0 = time.time(); cursor.execute("SELECT device_id, COUNT(*), AVG(rssi) FROM sensor_data GROUP BY device_id"); cursor.fetchall(); q2 = time.time() - t0
     t0 = time.time(); cursor.execute("SELECT COUNT(*) FROM sensor_data WHERE timestamp >= %s AND timestamp <= %s", (RANGE_START, RANGE_END)); cursor.fetchall(); q3 = time.time() - t0
-    # ----------------------------------------------
 
     print_result("特定デバイス検索", q1); print_result("全デバイス別集計", q2); print_result("時間範囲検索(1h)", q3); print("")
     conn.close(); return q1, q2, q3

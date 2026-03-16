@@ -97,11 +97,14 @@ def insert_postgres(data, columns):
     cursor.close(); conn.close()
     return elapsed
 
-def insert_mongodb(data, columns):
-    print("[MongoDB] インサート準備中...")
+def insert_mongodb(data, columns, append=False):
+    print(f"[MongoDB] インサート準備中... (追記モード: {append})")
     client = MongoClient("mongodb://root:rootpassword@mongodb:27017/")
     collection = client["mydatabase"]["sensor_data"]
-    collection.delete_many({})
+    
+    if not append:
+        collection.delete_many({}) # 追記モードでなければ初期化
+        
     dict_data = [dict(zip(columns, row)) for row in data]
     
     print("[MongoDB] 計測開始...")
@@ -148,14 +151,16 @@ async def insert_surrealdb(data, columns):
         print(f"✅ [SurrealDB] Insert完了: {elapsed:.4f} 秒\n")
         return elapsed
 
-def insert_clickhouse(data, columns):
-    print("[ClickHouse] インサート準備中...")
+def insert_clickhouse(data, columns, append=False):
+    print(f"[ClickHouse] インサート準備中... (追記モード: {append})")
     client = clickhouse_connect.get_client(host='clickhouse', port=8123, username='default', password='rootpassword')
-    type_map = {"device_id": "Int32", "mac_address": "String", "rssi": "Float32", "recorded_at": "DateTime64(3)"}
-    col_defs = ", ".join([f"{col} {type_map[col]}" for col in columns])
     
-    client.command("DROP TABLE IF EXISTS sensor_data")
-    client.command(f"CREATE TABLE sensor_data ({col_defs}) ENGINE = MergeTree() ORDER BY (device_id, recorded_at)")
+    if not append:
+        # 追記モードでなければテーブルを再作成
+        type_map = {"device_id": "Int32", "mac_address": "String", "rssi": "Float32", "recorded_at": "DateTime64(3)"}
+        col_defs = ", ".join([f"{col} {type_map[col]}" for col in columns])
+        client.command("DROP TABLE IF EXISTS sensor_data")
+        client.command(f"CREATE TABLE sensor_data ({col_defs}) ENGINE = MergeTree() ORDER BY (device_id, recorded_at)")
     
     print("[ClickHouse] 計測開始...")
     start_time = time.time()
@@ -258,12 +263,13 @@ def insert_duckdb(data, columns):
     conn.close()
     return elapsed
 
-def insert_questdb(data, columns):
-    print("[QuestDB] インサート準備中...")
+def insert_questdb(data, columns, append=False):
+    # QuestDBのILPは自動的に追記されるため特別なDrop処理は不要
+    # （ボリューム自体をコンテナごと消破棄して初期化する前提）
+    print(f"[QuestDB] インサート準備中... (追記モード: {append})")
     print("[QuestDB] 計測開始...")
     start_time = time.time()
     
-    # --- 修正箇所：QuestDB 4.x 向けの from_conf 記法に変更 ---
     with Sender.from_conf('tcp::addr=questdb:9009;') as sender:
         for row in data:
             row_dict = dict(zip(columns, row))
@@ -275,7 +281,6 @@ def insert_questdb(data, columns):
                 at=row_dict['recorded_at']
             )
         sender.flush()
-    # ---------------------------------------------------------
         
     elapsed = time.time() - start_time
     print(f"✅ [QuestDB] Insert完了: {elapsed:.4f} 秒\n")
@@ -326,6 +331,7 @@ if __name__ == "__main__":
     parser.add_argument("--exclude-strings", action="store_true")
     # CSVのパスを受け取るオプションを追加
     parser.add_argument("--csv", type=str, default="/app/results/benchmark_results.csv")
+    parser.add_argument("--append", action="store_true", help="テーブルを初期化せずデータを追加する")
     args = parser.parse_args()
 
     print(f"=== ベンチマーク開始: 対象DB={args.db}, 件数={args.records:,}, 文字列除外={args.exclude_strings} ===")
@@ -337,13 +343,13 @@ if __name__ == "__main__":
     if args.db in ["postgres", "all"]: 
         append_to_csv(args.csv, "postgres", "insert", args.records, args.exclude_strings, insert_postgres(dummy_data, data_columns))
     if args.db in ["mongodb", "all"]: 
-        append_to_csv(args.csv, "mongodb", "insert", args.records, args.exclude_strings, insert_mongodb(dummy_data, data_columns))
+        append_to_csv(args.csv, "mongodb", "insert", args.records, args.exclude_strings, insert_mongodb(dummy_data, data_columns, args.append))
     if args.db in ["redis", "all"]: 
         append_to_csv(args.csv, "redis", "insert", args.records, args.exclude_strings, insert_redis(dummy_data, data_columns))
     if args.db in ["surrealdb", "all"]: 
         append_to_csv(args.csv, "surrealdb", "insert", args.records, args.exclude_strings, asyncio.run(insert_surrealdb(dummy_data, data_columns)))
     if args.db in ["clickhouse", "all"]: 
-        append_to_csv(args.csv, "clickhouse", "insert", args.records, args.exclude_strings, insert_clickhouse(dummy_data, data_columns))
+        append_to_csv(args.csv, "clickhouse", "insert", args.records, args.exclude_strings, insert_clickhouse(dummy_data, data_columns, args.append))
     if args.db in ["timescaledb", "all"]: 
         append_to_csv(args.csv, "timescaledb", "insert", args.records, args.exclude_strings, insert_timescaledb(dummy_data, data_columns))
     if args.db in ["influxdb", "all"]: 
@@ -353,6 +359,6 @@ if __name__ == "__main__":
     if args.db in ["duckdb", "all"]: 
         append_to_csv(args.csv, "duckdb", "insert", args.records, args.exclude_strings, insert_duckdb(dummy_data, data_columns))
     if args.db in ["questdb", "all"]: 
-        append_to_csv(args.csv, "questdb", "insert", args.records, args.exclude_strings, insert_questdb(dummy_data, data_columns))
+        append_to_csv(args.csv, "questdb", "insert", args.records, args.exclude_strings, insert_questdb(dummy_data, data_columns, args.append))
     if args.db in ["starrocks", "all"]: 
         append_to_csv(args.csv, "starrocks", "insert", args.records, args.exclude_strings, insert_starrocks(dummy_data, data_columns))
