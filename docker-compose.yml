@@ -131,7 +131,7 @@ services:
     container_name: questdb
     restart: always
     ports:
-      - "9000:9000"
+      - "9009:9000"
       - "8812:8812" # Postgresワイヤープロトコル用ポート
     volumes:
       - questdb_data:/root/.questdb
@@ -170,6 +170,52 @@ services:
     networks:
       - default
   
+  # ==========================================
+  # 可視化ツール群 (独立コンテナ)
+  # ==========================================
+  
+  # A. Mongo Express (MongoDB用 超軽量WebブラウザUI)
+  mongo-express:
+    image: mongo-express:latest
+    container_name: mongo-express
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: rootpassword
+      ME_CONFIG_MONGODB_SERVER: mongodb
+    depends_on:
+      - mongodb
+
+  # B. Grafana (QuestDB & ClickHouse & TimescaleDB 統合ダッシュボード)
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      # 起動時にClickHouseのデータソースプラグインを自動インストール
+      - GF_INSTALL_PLUGINS=grafana-clickhouse-datasource
+    volumes:
+      - grafana_data:/var/lib/grafana
+    depends_on:
+      - questdb
+      - clickhouse
+
+  # Metabase (MongoDB / ClickHouse等の集計ダッシュボード)
+  metabase:
+    image: metabase/metabase:latest
+    container_name: metabase
+    restart: always
+    ports:
+      - "3001:3000"  # Grafanaと被らないよう3001に設定
+    volumes:
+      - metabase_data:/metabase-data
+    environment:
+      MB_DB_FILE: /metabase-data/metabase.db
+
 volumes:
   mysql_data:
   postgres_data:
@@ -182,6 +228,8 @@ volumes:
   scylla_data:
   questdb_data:
   starrocks_data:
+  grafana_data:
+  metabase_data:
 
 networks:
   default:
